@@ -26,6 +26,7 @@
 <script>
   import Options from './options.vue';
   import PageMixin from '../../mixins/page.vue';
+
   export default {
     name: 'page',
 	components: { Options },
