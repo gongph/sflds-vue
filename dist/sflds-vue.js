@@ -1,8 +1,8 @@
 /**
  * sflds-vue 3.0.0
- * sflds project build with vue
+ * sflds project build with vue2.x
  * 
- * Copyright 2017, gongph
+ * Copyright 2017, gongph <gongph@foxmail.com>
  * 
  */
  (function (global, factory) {
@@ -658,99 +658,97 @@ var PageMixin = {
 var Page = {
 render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',[_c('ul',{staticClass:"pagination"},[_c('li',{class:_vm.prevClasses,on:{"click":_vm.prev}},[_c('a',[_vm._v("上一页")])]),_vm._v(" "),_c('li',{class:_vm.firstPageClasses,on:{"click":function($event){_vm.changePage(1);}}},[_c('a',[_vm._v("1")])]),_vm._v(" "),(_vm.currentPage-3 > 1)?_c('li',[_c('a',[_vm._v("...")])]):_vm._e(),_vm._v(" "),(_vm.currentPage - 2 > 1)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage - 2);}}},[_c('a',[_vm._v(_vm._s(_vm.currentPage - 2))])]):_vm._e(),_vm._v(" "),(_vm.currentPage - 1 > 1)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage - 1);}}},[_c('a',[_vm._v(_vm._s(_vm.currentPage - 1))])]):_vm._e(),_vm._v(" "),(_vm.currentPage != 1 && _vm.currentPage != _vm.allPages)?_c('li',{staticClass:"active"},[_c('a',[_vm._v(_vm._s(_vm.currentPage))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 1 < _vm.allPages)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage + 1);}}},[_c('a',[_vm._v(_vm._s(_vm.currentPage + 1))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 2 < _vm.allPages)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage + 2);}}},[_c('a',[_vm._v(_vm._s(_vm.currentPage + 2))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 3 < _vm.allPages)?_c('li',[_c('a',[_vm._v("...")])]):_vm._e(),_vm._v(" "),(_vm.allPages > 1)?_c('li',{class:_vm.lastPageClasses,on:{"click":function($event){_vm.changePage(_vm.allPages);}}},[_c('a',[_vm._v(_vm._s(_vm.allPages))])]):_vm._e(),_vm._v(" "),_c('li',{class:_vm.nextClasses,on:{"click":_vm.next}},[_c('a',[_vm._v("下一页")])])]),_vm._v(" "),_c('Options',{attrs:{"showJump":_vm.showJump,"total":_vm.total,"allPages":_vm.allPages,"current":_vm.currentPage,"_current":_vm.currentPage},on:{"on-page":_vm.onPage}})],1)},
 staticRenderFns: [],
-	  name: 'page',
-	  components: { Options: Options },
-	  mixins: [PageMixin],
-	  props: {
-	    // 总数
-	    total: {
-	      type: Number,
-	      default: 0
-	    }
+    name: 'page',
+	components: { Options: Options },
+	mixins: [PageMixin],
+	props: {
+	  // 总数
+	  total: {
+	    type: Number,
+	    default: 0
+	  }
+	},
+	data: function data () {
+	  return {
+	    currentPage: this.current,
+	    currentPageSize: this.pageSize
+	  }
+	},
+	computed: {
+      allPages: function allPages () {
+        var allPage = Math.ceil(this.total / this.currentPageSize);
+        return (allPage === 0) ? 1 : allPage;
 	  },
-	  data: function data () {
+	  prevClasses: function prevClasses () {
 	    return {
-	      currentPage: this.current,
-	      currentPageSize: this.pageSize
+	      'disabled': this.currentPage === 1
 	    }
 	  },
-	  computed: {
-	  	// 总页数
-	  	allPages: function allPages () {
-          var allPage = Math.ceil(this.total / this.currentPageSize);
-          return (allPage === 0) ? 1 : allPage;
-	  	},
-	  	// 前一页的样式
-	    prevClasses: function prevClasses () {
-	      return {
-	        'disabled': this.currentPage === 1
-	      }
-	    },
-        nextClasses: function nextClasses () {
-          return {
-            'disabled': this.currentPage === this.allPages
-          }
-        },
-        firstPageClasses: function firstPageClasses () {
-          return {
-            'active': this.currentPage === 1
-          }
-        },
-        lastPageClasses: function lastPageClasses () {
-          return {
-            'active': this.currentPage === this.allPages
-          }
+      nextClasses: function nextClasses () {
+        return {
+          'disabled': this.currentPage === this.allPages
         }
-	  },
-	  watch: {
-	    // 监听当前页的变化
-        current: function current (val) {
-          this.currentPage = val;
+      },
+      firstPageClasses: function firstPageClasses () {
+        return {
+          'active': this.currentPage === 1
         }
+      },
+      lastPageClasses: function lastPageClasses () {
+        return {
+          'active': this.currentPage === this.allPages
+        }
+      }
+	},
+	watch: {
+	  // 监听当前页的变化
+      current: function current (val) {
+        this.currentPage = val;
+      }
+	},
+	created: function created () {
+      if (this.currentPage >= this.allPages) { this.currentPage = this.allPages; }
+	},
+	methods: {
+	  /**
+	   * 切换页码
+	   * @param  {Number} page 页码
+	   */
+	  changePage: function changePage (page) {
+	    if (this.currentPage !== page) {
+	      this.currentPage = page;
+	  	  var pageSize = this.currentPageSize;
+	  	  this.$emit('on-change', { page: page, pageSize: pageSize });
+	  	}
 	  },
-	  created: function created () {
-        if (this.currentPage >= this.allPages) { this.currentPage = this.allPages; }
-	  },
-	  methods: {
-	  	/**
-	  	 * 切换页码
-	  	 * @param  {Number} page 页码
-	  	 */
-	  	changePage: function changePage (page) {
-	  	  if (this.currentPage !== page) {
-	  	    this.currentPage = page;
-	  	    var pageSize = this.currentPageSize;
-	  	    this.$emit('on-change', { page: page, pageSize: pageSize });
-	  	  }
-	  	},
-	  	/**
-	  	 * 上一页
-	  	 */
-	    prev: function prev () {
-	      var current = this.currentPage;
+	  /**
+	   * 上一页
+	   */
+	  prev: function prev () {
+	    var current = this.currentPage;
 	      if (current <= 1) {
 	        return false;
 	      }
 	      this.changePage(current -1);
-	    },
-	    /**
-	     * 下一页
-	     */
-	    next: function next () {
-	      var current = this.currentPage;
+	  },
+	  /**
+	   * 下一页
+	   */
+	  next: function next () {
+	    var current = this.currentPage;
 	      if (current >= this.allPages) {
 	        return false;
 	      }
 	      this.changePage(current + 1);
-	    },
-	    /**
-	     * 跳转页发生改变时回调
-	     */
-	    onPage: function onPage (page) {
-          this.changePage(page);
-	    }
+	  },
+	  /**
+	   * 跳转页发生改变时回调
+	   */
+	  onPage: function onPage (page) {
+        this.changePage(page);
 	  }
-	};
+	}
+  };
 
 var Assist = {
   /**
