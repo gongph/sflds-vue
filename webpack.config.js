@@ -7,7 +7,7 @@ var NODE_ENV = process.env.NODE_ENV || 'development'
 
 module.exports = {
   entry: {
-    app: './docs/app.js'
+    app: './examples/app.js'
   },
   output: {
     path: path.join(__dirname, './dist'),
