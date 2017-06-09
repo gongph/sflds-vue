@@ -45,11 +45,11 @@
 	  },
 	  computed: {
 	  	// 总页数
-	  	allPages () {
+	    allPages () {
           const allPage = Math.ceil(this.total / this.currentPageSize);
           return (allPage === 0) ? 1 : allPage;
 	  	},
-	  	// 前一页的样式
+        // 前一页的样式
 	    prevClasses () {
 	      return {
 	        'disabled': this.currentPage === 1
