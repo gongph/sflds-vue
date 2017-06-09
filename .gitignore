@@ -1,2 +1,6 @@
 *log
 node_modules
+
+docs/_book
+docs/*.log
+docs/node_modules
