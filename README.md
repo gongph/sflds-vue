@@ -40,20 +40,19 @@
 ```
 
 ## API
-目前API正在完善阶段，如果你想看可以直接进入 `docs/` 目录下查看 `.md` 文件即可，如果你想查看网页版 API 文档，请执行以下命令：
+目前API正在完善阶段，如果你想看可以直接进入 `docs/` 目录下查看 `.md` 文件即可，如果你想查看网页版 API 文档，请按步骤执行以下命令：
 
 ```bash 
-# 安装 gitbook
+# step1: 安装 gitbook
 npm i gitbook-cli -g 
 
-# 进入到 docs 目录
+# step2: 进入组件的 docs 目录
 cd docs
 
-# 安装插件
+# step3: 安装插件
 gitbook install 
 
-# 启动
-# localhost:4000
+# step4: 启动并访问 localhost:4000
 gitbook serve 
 ```
 
