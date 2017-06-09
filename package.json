@@ -1,0 +1,9 @@
+{
+  "name": "sflds-vue",
+  "version": "3.0.0",
+  "description": "sflds project build with vue2.x",
+  "main": "index.js",
+  "repository": "git@github.com:gongph/sflds-vue.git",
+  "author": "gongph <gongph@foxmail.com>",
+  "license": "MIT"
+}
