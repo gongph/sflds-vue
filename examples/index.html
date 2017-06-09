@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>sflds-vue project</title>
+  <link rel="stylesheet" type="text/css" href="./assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/style/css/style.css">
+	<script src="./assets/jquery/jquery-1.11.1.min.js"></script>
+  <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <sf-view>
+      <!-- header -->
+      <sf-header>
+        <!-- 头部工具条 -->
+        <sf-toolbar>
+          <sf-toolbar-item href="#" text="返回首页" @click="backHome"></sf-toolbar-item>
+          <sf-toolbar-item text="加入收藏"></sf-toolbar-item>
+          <sf-toolbar-item text="RSS订阅"></sf-toolbar-item>
+        </sf-toolbar>
+        <!-- 导航条 -->
+        <sf-navbar>
+          <sf-navbar-item text="综合查询" href="zhcx"></sf-navbar-item>
+          <sf-navbar-item text="法律体系查询" href="/fltxcx"></sf-navbar-item>
+          <sf-navbar-item text="最新法律资讯" href="/home" active></sf-navbar-item>
+        </sf-navbar>
+        <!-- 位置栏 -->
+        <sf-position>
+          <!-- 面包屑 -->
+          <sf-breadcrumb>
+            <sf-breadcrumb-item href="/home">首页</sf-breadcrumb-item>
+            <sf-breadcrumb-item href="/zxflzx">
+              <template>最新法律资讯</template>
+              <template slot="separator"></template>
+            </sf-breadcrumb-item>
+          </sf-breadcrumb>
+          <!-- 字体大小 -->
+          <sf-font selector=".position_nav_l"></sf-font>
+        </sf-position>
+      </sf-header>
+      
+      <!-- 主体内容 -->
+      <sf-main>
+        <!-- 左侧 -->
+        <sf-aside align="left">
+          <!-- 综合查询 -->
+          <sf-search more-text="高级搜索>>" href="/more" placeholder="请输入关键字..."></sf-search>
+          <!-- 快速链接 -->
+          <sf-quick-link>
+            <sf-link v-for="link of links" :key="link.id" :href="link.url">{{link.name}}</sf-link>
+          </sf-quick-link>
+        </sf-aside>
+
+        <!-- 右侧 -->
+        <sf-aside align="right">
+          <!-- Tab页 -->
+          <sf-tabs @show:tab="onShowTab" @shown:tab="onShownTab">
+            <sf-tab id="t1" header="最新法规">
+              <sf-table :columns="columns" 
+                        :data="tableDatas" 
+                        :current="currentPage" 
+                        :page-size="1" 
+                        :show-page="true" 
+                        @on-page-change="onPageChange">
+                        </sf-table>
+            </sf-tab>
+            <sf-tab id="t2" header="行政执法文书">2</sf-tab>
+            <sf-tab id="t3" header="司法判决书">3</sf-tab>
+            <sf-tab id="t4" header="自律监管措施决定书">4</sf-tab>
+          </sf-tabs>
+        </sf-aside>
+      </sf-main>
+      
+      <!-- footer -->
+      <sf-footer>
+        <sf-link>系统简介</sf-link> | <sf-link>联系我们</sf-link> | <sf-link>访问统计</sf-link> | <sf-link>网站地图</sf-link>
+      </sf-footer>
+
+    </sf-view>
+  </div>
+ <script src="./build.js"></script>
+</body>
+</html>
