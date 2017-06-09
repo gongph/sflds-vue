@@ -24,98 +24,98 @@
   </nav>
 </template>
 <script>
-    import Options from './options.vue';
-    import PageMixin from '../../mixins/page.vue';
-	export default {
-	  name: 'page',
-	  components: { Options },
-	  mixins: [PageMixin],
-	  props: {
-	    // 总数
-	    total: {
-	      type: Number,
-	      default: 0
-	    }
+  import Options from './options.vue';
+  import PageMixin from '../../mixins/page.vue';
+  export default {
+    name: 'page',
+	components: { Options },
+	mixins: [PageMixin],
+	props: {
+	  // 总数
+	  total: {
+	    type: Number,
+	    default: 0
+	  }
+	},
+	data () {
+	  return {
+	    currentPage: this.current,
+	    currentPageSize: this.pageSize
+	  }
+	},
+	computed: {
+      allPages () {
+        const allPage = Math.ceil(this.total / this.currentPageSize);
+        return (allPage === 0) ? 1 : allPage;
 	  },
-	  data () {
+	  prevClasses () {
 	    return {
-	      currentPage: this.current,
-	      currentPageSize: this.pageSize
+	      'disabled': this.currentPage === 1
 	    }
 	  },
-	  computed: {
-        allPages () {
-          const allPage = Math.ceil(this.total / this.currentPageSize);
-          return (allPage === 0) ? 1 : allPage;
-	  	},
-	    prevClasses () {
-	      return {
-	        'disabled': this.currentPage === 1
-	      }
-	    },
-        nextClasses () {
-          return {
-            'disabled': this.currentPage === this.allPages
-          }
-        },
-        firstPageClasses () {
-          return {
-            'active': this.currentPage === 1
-          }
-        },
-        lastPageClasses () {
-          return {
-            'active': this.currentPage === this.allPages
-          }
+      nextClasses () {
+        return {
+          'disabled': this.currentPage === this.allPages
         }
-	  },
-	  watch: {
-	    // 监听当前页的变化
-        current (val) {
-          this.currentPage = val;
+      },
+      firstPageClasses () {
+        return {
+          'active': this.currentPage === 1
         }
+      },
+      lastPageClasses () {
+        return {
+          'active': this.currentPage === this.allPages
+        }
+      }
+	},
+	watch: {
+	  // 监听当前页的变化
+      current (val) {
+        this.currentPage = val;
+      }
+	},
+	created () {
+      if (this.currentPage >= this.allPages) this.currentPage = this.allPages;
+	},
+	methods: {
+	  /**
+	   * 切换页码
+	   * @param  {Number} page 页码
+	   */
+	  changePage (page) {
+	    if (this.currentPage !== page) {
+	      this.currentPage = page;
+	  	  let pageSize = this.currentPageSize;
+	  	  this.$emit('on-change', { page, pageSize });
+	  	}
 	  },
-	  created () {
-        if (this.currentPage >= this.allPages) this.currentPage = this.allPages;
-	  },
-	  methods: {
-	  	/**
-	  	 * 切换页码
-	  	 * @param  {Number} page 页码
-	  	 */
-	  	changePage (page) {
-	  	  if (this.currentPage !== page) {
-	  	    this.currentPage = page;
-	  	    let pageSize = this.currentPageSize;
-	  	    this.$emit('on-change', { page, pageSize });
-	  	  }
-	  	},
-	  	/**
-	  	 * 上一页
-	  	 */
-	    prev () {
-	      const current = this.currentPage;
+	  /**
+	   * 上一页
+	   */
+	  prev () {
+	    const current = this.currentPage;
 	      if (current <= 1) {
 	        return false;
 	      }
 	      this.changePage(current -1);
-	    },
-	    /**
-	     * 下一页
-	     */
-	    next () {
-	      const current = this.currentPage;
+	  },
+	  /**
+	   * 下一页
+	   */
+	  next () {
+	    const current = this.currentPage;
 	      if (current >= this.allPages) {
 	        return false;
 	      }
 	      this.changePage(current + 1);
-	    },
-	    /**
-	     * 跳转页发生改变时回调
-	     */
-	    onPage (page) {
-          this.changePage(page);
-	    }
+	  },
+	  /**
+	   * 跳转页发生改变时回调
+	   */
+	  onPage (page) {
+        this.changePage(page);
 	  }
 	}
+  }
 </script>
