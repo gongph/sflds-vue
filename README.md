@@ -2,12 +2,12 @@
 基于 vue2.x 封装的法律法规系统组件，一起为了业务服务！
 
 > why name is sflds ？
-可能是 上(s)市法(f)律(l)法规数据库(database)系统(system)的简称。
+>可能是 上(s)市法(f)律(l)法规数据库(database)系统(system)的简称
 
 ## 项目依赖
 - jquery 1.9以上版本
-- bootstrap(js/css)：该组件使用的是 v3.3.5 版本。
-- vue 2.0以上版本：该组件使用的是 vue 最新 v2.3.3 版本。
+- bootstrap(js/css)：该组件使用的是 v3.3.5 版本
+- vue 2.0以上版本：该组件使用的是 vue 最新 v2.3.3 版本
 
 ## 用法
 
@@ -24,6 +24,7 @@
   <script src="./assets/jquery/jquery-1.11.1.min.js"></script>
   <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
   <script src="http://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+  <script src="./dist/sflds-vue.min.js"></script>
   <script>
     // 安装组件
     Vue.use(Sflds);
