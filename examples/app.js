@@ -8,7 +8,7 @@ Vue.use(SfldsVue)
 new Vue({
   el: '#app',
   data: {
-  	// 导航栏
+    // 导航栏
     navs: [
       { id: '1', name: '综合查询', url: '/zhcx'},
       { id: '2', name: '法规体系查询', url: '/fgtxcx'},
