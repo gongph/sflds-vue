@@ -1,0 +1,14 @@
+{
+  "title": "sflds-vue docs",
+  "author": "gongph",
+  "description": "sflds-vue build with vue2.x",
+  "language": "zh-hans",
+  "styles": {
+    "website": "styles/website.css"
+  },
+  "plugins": [
+    "-search",
+    "-lunr",
+    "splitter"
+  ]
+}
