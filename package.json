@@ -4,7 +4,7 @@
   "description": "sflds project build with vue2.x",
   "main": "./src/index.js",
   "scripts": {
-    "serve": "cross-env NODE_ENV=development webpack-dev-server --content-base docs/ --open --inline --hot",
+    "serve": "cross-env NODE_ENV=development webpack-dev-server --content-base examples/ --open --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --hide-modules --progress",
     "dist": "gulp dist"
   },
