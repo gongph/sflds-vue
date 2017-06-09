@@ -1,8 +1,5 @@
 <script>
   export default {
-  	props: {
-  	  text: String
-  	},
     render: function (c) {
       var buttonEl, self = this;
       buttonEl = c('button', {
