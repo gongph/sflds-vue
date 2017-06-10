@@ -9,7 +9,7 @@
 
 ## 效果图
 
-![preview](./media/page.md)
+![preview](./media/page.png)
 
 ## API
 
@@ -26,4 +26,4 @@
 
 | 事件名 | 参数 | 参数类型 | 说明 |
 | :---: | :---: | :---: | --- |
-| on-change | pageInfo | Object | 页码改变时回调，返回分页对象：`{page: 2, pageSize: 20}` ，其中 `page` 是当前页，`pageSize` 是每页显示的条数|
+| on-change | pageInfo | Object | 页码改变时回调，返回分页对象：`{page: 2, pageSize: 20}` 。<br>其中 `page` 是当前页，`pageSize` 是每页显示的条数|
