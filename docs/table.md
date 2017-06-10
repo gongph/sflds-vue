@@ -63,7 +63,7 @@ new Vue({
 
 其中 `columns` 数组每个对象中完整的属性如下：
 
-```
+```js
 ...
 columns: [
   {
