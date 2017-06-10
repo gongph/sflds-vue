@@ -15,15 +15,15 @@
       <sf-header>
         <!-- 头部工具条 -->
         <sf-toolbar>
-          <sf-toolbar-item href="#" text="返回首页" @click="backHome"></sf-toolbar-item>
-          <sf-toolbar-item text="加入收藏"></sf-toolbar-item>
-          <sf-toolbar-item text="RSS订阅"></sf-toolbar-item>
+          <sf-toolbar-item href="#" @click="backHome">返回首页</sf-toolbar-item>
+          <sf-toolbar-item>加入收藏</sf-toolbar-item>
+          <sf-toolbar-item>RSS订阅</sf-toolbar-item>
         </sf-toolbar>
         <!-- 导航条 -->
         <sf-navbar>
-          <sf-navbar-item text="综合查询" href="zhcx"></sf-navbar-item>
-          <sf-navbar-item text="法律体系查询" href="/fltxcx"></sf-navbar-item>
-          <sf-navbar-item text="最新法律资讯" href="/home" active></sf-navbar-item>
+          <sf-navbar-item href="zhcx">综合查询</sf-navbar-item>
+          <sf-navbar-item href="/fltxcx">法律体系查询</sf-navbar-item>
+          <sf-navbar-item href="/home" active>最新法律资讯</sf-navbar-item>
         </sf-navbar>
         <!-- 位置栏 -->
         <sf-position>
