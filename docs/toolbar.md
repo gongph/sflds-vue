@@ -24,7 +24,7 @@ new Vue ({
 
 ## 效果图
 
-![preview](./medai/toolbar.png)
+![preview](./media/toolbar.png)
 
 ## API
 
