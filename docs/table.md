@@ -63,15 +63,15 @@ new Vue({
 
 其中 `columns` 数组每个对象中完整的属性如下：
 
-```json
+```
 ...
 columns: [
   {
-     title: '',   // 标题
-     key: '',     // 键，值对应数据源中的属性,
-     width: '',   // 列宽度
+     title  : '', // 标题
+     key    : '', // 键，值对应数据源中的属性,
+     width  : '', // 列宽度
      classes: '', // 自定义列样式
-     render: function (data, row) {
+     render : function (data, row) {
        // data: 当前单元格中的值
        // row： 当前行对象
      }
