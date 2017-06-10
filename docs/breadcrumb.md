@@ -22,7 +22,7 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | :---: | :---: | :---: | --- |
-| title | String | `"您所在的位置："` | 标题 |
+| title | String | `您所在的位置：` | 标题 |
 | separator | String | `>` | 分隔符 |
 
 以下是 `<sf-breadcrumb-item>` 组件可用的 props ：

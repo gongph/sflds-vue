@@ -24,4 +24,4 @@ new Vue({
 
 | 事件名 | 参数 | 参数类型 | 说明 |
 | :---: | :---: | :---: | --- |
-| click | event | Object | 标题 |
+| click | event | Object | 点击事件 |

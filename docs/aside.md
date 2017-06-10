@@ -9,7 +9,7 @@
 
 ## 效果图
 
-![preview](../media/aside.png)
+![preview](./media/aside.png)
 
 ## API
 
