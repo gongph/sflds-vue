@@ -1,5 +1,5 @@
 # 表格组件
-表格组件用来进行数据展示，将非结构化数据通过 HTML表格的形势呈现到页面中。
+表格组件用来进行数据展示，将非结构化数据通过 HTML表格的形式呈现到页面中。
 
 ## 示例代码
 
@@ -20,7 +20,7 @@ new Vue({
   data: {
     // 表格列
     columns: [
-      { title: '姓名', key: 'name' },
+      { title: '姓名', key: 'name', width: '5%' },
       { title: '年龄', key: 'age', render: function (data, row) {
         return row.name + ': ' + data;
       }},
@@ -61,8 +61,27 @@ new Vue({
 | page-size | Number | `20` | 每页显示条数 |
 | show-jump | Boolean | `true` | 是否显示分页，当 `show-page: true` 时生效 |
 
+其中 `columns` 数组每个对象中完整的属性如下：
+
+```json
+...
+columns: [
+  {
+     title: '',   // 标题
+     key: '',     // 键，值对应数据源中的属性,
+     width: '',   // 列宽度
+     classes: '', // 自定义列样式
+     render: function (data, row) {
+       // data: 当前单元格中的值
+       // row： 当前行对象
+     }
+  }
+]
+...
+```
+
 以下是 `<sf-search>` 组件可用的事件：
 
 | 事件名 | 参数 | 参数类型 | 说明 |
-| :---: | :---: | :---: | --- |
+| :--- | :---: | :---: | --- |
 | on-page-change | pageInfo | Object | 页码改变时触发，返回分页信息 |
