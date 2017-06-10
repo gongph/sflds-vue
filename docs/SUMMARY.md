@@ -15,6 +15,8 @@
     - [navbar](./navbar.md)
     - [breadcrumb](./breadcrumb.md)
     - [font](./font.md)
+    - [search](./search.md)
+    - [quick-link](./quick-link.md)
     - [tabs](./tabs.md)
     - [page](./page.md)
     - [table](./table.md)
