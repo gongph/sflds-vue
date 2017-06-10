@@ -35,14 +35,14 @@ new Vue({
 | :--- | :---: | :---: | :--- |
 | active | Number | `0` | 激活指定的标签页，默认第一个 |
 
-以下是 `<sf-search>` 组件可用的事件：
+以下是 `<sf-tabs>` 组件可用的事件：
 
 | 事件名 | 参数 | 参数类型 | 说明 |
 | :--- | :---: | :---: | :--- |
-| show:tab | event | Object | 事件对象，其中 `event.target` 得到当前标签页<br> `event.relatedTarget` 得到前一个标签页 |
-| shown:tab | event | Object | 同上 |
-| hide:tab | event | Object | 同上 |
-| hidden:tab | event | Object | 同上 |
+| show:tab | event | Object | 标签显示前触发，其中 `event.target` 得到当前标签页<br> `event.relatedTarget` 得到前一个标签页 |
+| shown:tab | event | Object | 标签显示后触发 |
+| hide:tab | event | Object | 标签隐藏前触发 |
+| hidden:tab | event | Object | 标签隐藏后触发 |
 
 以下是 `<sf-tab>` 组件可用的 props：
 
