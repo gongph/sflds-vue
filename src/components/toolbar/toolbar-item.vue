@@ -3,12 +3,12 @@
   export default {
     render: function (c) {
       var linkEl, self = this;
-      linkEl = c('a', {
+      linkEl = c('sf-link', {
         attrs: self.attrsObject,
         on: {
           click: self.onClick
         }
-      }, self.text);
+      }, [self.$slots.default]);
 
       return c('li', {}, [linkEl]);
     },

@@ -3,7 +3,7 @@
   export default {
     render: function (c) {
       var self = this;
-      return c('a', {
+      return c('sf-link', {
         class: {
           'active_nav': self.active ? true : false
         },
@@ -11,7 +11,7 @@
         on: {
           click: self.onClick
         }
-      }, self.text);
+      }, [self.$slots.default]);
     },
     mixins: [LinkMixin],
     methods: {

@@ -8,7 +8,7 @@
 
 ## 目录
 - [介绍](README.md)
-- [组件]()
+- [components]()
   - [layout]()
     - [view](./view.md)
     - [header](./header.md)
@@ -22,6 +22,8 @@
     - [navbar](./navbar.md)
     - [breadcrumb](./breadcrumb.md)
     - [font](./font.md)
+    - [search](./search.md)
+    - [quick-link](./quick-link.md)
     - [tabs](./tabs.md)
     - [page](./page.md)
     - [table](./table.md)
