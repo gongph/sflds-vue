@@ -4,10 +4,12 @@
 ## 示例代码
 
 ```html
-<sf-search more-text="高级搜索>>" 
-           href="/more" 
-           placeholder="请输入关键字..." 
-           @click="search"></sf-search>
+<sf-search 
+  more-text="高级搜索>>" 
+  href="/more" 
+  placeholder="请输入关键字..." 
+  @click="search">
+</sf-search>
 ```
 
 ```js
