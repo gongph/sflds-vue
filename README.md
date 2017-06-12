@@ -30,10 +30,12 @@
   <script src="http://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
   <script src="./dist/sflds-vue.min.js"></script>
   <script>
-    // 安装组件
-    Vue.use(Sflds);
-    new Vue({
-      el: '#app'
+    $(function () {
+      // 安装组件
+      Vue.use(SfldsVue);
+      new Vue({
+          el: '#app'
+      });
     });
   </script>
 </head>
