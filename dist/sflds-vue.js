@@ -6,9 +6,9 @@
  * 
  */
  (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
-	(factory());
+	(global.SfldsVue = factory());
 }(this, (function () {
 
 var View = {
@@ -166,12 +166,12 @@ var LinkMixin = {
 var ToolbarItem = {
     render: function (c) {
       var linkEl, self = this;
-      linkEl = c('a', {
+      linkEl = c('sf-link', {
         attrs: self.attrsObject,
         on: {
           click: self.onClick
         }
-      }, self.text);
+      }, [self.$slots.default]);
 
       return c('li', {}, [linkEl]);
     },
@@ -195,7 +195,7 @@ var Navbar = {
 var NavbarItem = {
     render: function (c) {
       var self = this;
-      return c('a', {
+      return c('sf-link', {
         class: {
           'active_nav': self.active ? true : false
         },
@@ -203,7 +203,7 @@ var NavbarItem = {
         on: {
           click: self.onClick
         }
-      }, self.text);
+      }, [self.$slots.default]);
     },
     mixins: [LinkMixin],
     methods: {
@@ -857,9 +857,6 @@ staticRenderFns: [],
   };
 
 var Button = {
-  	props: {
-  	  text: String
-  	},
     render: function (c) {
       var buttonEl, self = this;
       buttonEl = c('button', {
@@ -881,46 +878,78 @@ var Button = {
     }
   };
 
-// components
-var install = function (Vue, opts) {
-  if ( opts === void 0 ) opts = {};
-
-  Vue.mixin({
-    components: {
-      // layout
-      'sf-view': View,
-      'sf-header': Header,
-      'sf-footer': Footer,
-      'sf-logo': Logo,
-      'sf-position': Position,
-      'sf-main': Main,
-      'sf-aside': Aside,
-      'sf-quick-link': QuickLink,
-      // functional
-      'sf-toolbar': Toolbar,
-      'sf-toolbar-item': ToolbarItem,
-      'sf-navbar': Navbar,
-      'sf-navbar-item': NavbarItem,
-      'sf-breadcrumb': Breadcrumb,
-      'sf-breadcrumb-item': BreadcrumbItem,
-      'sf-font': Font,
-      'sf-search': Search,
-      'sf-link': Link,
-      'sf-tabs': Tabs,
-      'sf-tab': Tab,
-      'sf-page': Page,
-      'sf-table': Table,
-      'sf-button': Button
+var treeNode = {
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.visible)?_c('ul',{staticClass:"sf-tree-children"},[_c('li',[_vm._m(0),_vm._v(" "),_c('span',{staticClass:"sf-tree-title",domProps:{"innerHTML":_vm._s(_vm.data.title)},on:{"click":_vm.handleSelect}}),_vm._v(" "),_vm._l((_vm.data.children),function(item){return _c('tree-node',{key:item,attrs:{"data":item,"visible":_vm.data.expand}})})],2)]):_vm._e()},
+staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_c('i',{staticClass:"glyphicon glyphicon-plus"})])}],
+    name: 'treeNode',
+    props: {
+      data: {
+        type: Object,
+        default: function default$1 () {
+          return {};
+        }
+      },
+      visible: {
+        type: Boolean,
+        default: false
+      }
     }
-  });
+  };
+
+var Tree = {
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_vm._l((_vm.data),function(item){return _c('tree-node',{key:item,attrs:{"data":item,"visible":""}})}),_vm._v(" "),(!_vm.data.length)?_c('div',[_vm._v("没有数据！")]):_vm._e()],2)},
+staticRenderFns: [],
+    name: 'tree',
+    components: { treeNode: treeNode },
+    props: {
+      data: {
+        type: Array,
+        default: function default$1 () {
+          return [];
+        }
+      }
+    }
+  };
+
+// components
+/**
+ * Plugins
+ */
+var index = {
+  install: function (Vue) {
+    Vue.mixin({
+      components: {
+        // layout
+        'sf-view': View,
+        'sf-header': Header,
+        'sf-footer': Footer,
+        'sf-logo': Logo,
+        'sf-position': Position,
+        'sf-main': Main,
+        'sf-aside': Aside,
+        'sf-quick-link': QuickLink,
+        // functional
+        'sf-toolbar': Toolbar,
+        'sf-toolbar-item': ToolbarItem,
+        'sf-navbar': Navbar,
+        'sf-navbar-item': NavbarItem,
+        'sf-breadcrumb': Breadcrumb,
+        'sf-breadcrumb-item': BreadcrumbItem,
+        'sf-font': Font,
+        'sf-search': Search,
+        'sf-link': Link,
+        'sf-tabs': Tabs,
+        'sf-tab': Tab,
+        'sf-page': Page,
+        'sf-table': Table,
+        'sf-button': Button,
+        "sf-tree": Tree
+      }
+    });
+  }
 };
 
-// auto install
-if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue);
-}
-
-module.exports = Object.assign({}, { install: install });
+return index;
 
 })));
 
