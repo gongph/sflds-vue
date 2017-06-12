@@ -21,41 +21,41 @@ import Tab from './components/tabs/tab.vue';
 import Page from './components/page/page.vue';
 import Table from './components/table/table.vue';
 import Button from './components/button/button.vue';
+import Tree from './components/tree/tree.vue';
 
-const install = function (Vue, opts = {}) {
-  Vue.mixin({
-    components: {
-      // layout
-      'sf-view': View,
-      'sf-header': Header,
-      'sf-footer': Footer,
-      'sf-logo': Logo,
-      'sf-position': Position,
-      'sf-main': Main,
-      'sf-aside': Aside,
-      'sf-quick-link': QuickLink,
-      // functional
-      'sf-toolbar': Toolbar,
-      'sf-toolbar-item': ToolbarItem,
-      'sf-navbar': Navbar,
-      'sf-navbar-item': NavbarItem,
-      'sf-breadcrumb': Breadcrumb,
-      'sf-breadcrumb-item': BreadcrumbItem,
-      'sf-font': Font,
-      'sf-search': Search,
-      'sf-link': Link,
-      'sf-tabs': Tabs,
-      'sf-tab': Tab,
-      'sf-page': Page,
-      'sf-table': Table,
-      'sf-button': Button
-    }
-  })
+/**
+ * Plugins
+ */
+export default {
+  install: function (Vue) {
+    Vue.mixin({
+      components: {
+        // layout
+        'sf-view': View,
+        'sf-header': Header,
+        'sf-footer': Footer,
+        'sf-logo': Logo,
+        'sf-position': Position,
+        'sf-main': Main,
+        'sf-aside': Aside,
+        'sf-quick-link': QuickLink,
+        // functional
+        'sf-toolbar': Toolbar,
+        'sf-toolbar-item': ToolbarItem,
+        'sf-navbar': Navbar,
+        'sf-navbar-item': NavbarItem,
+        'sf-breadcrumb': Breadcrumb,
+        'sf-breadcrumb-item': BreadcrumbItem,
+        'sf-font': Font,
+        'sf-search': Search,
+        'sf-link': Link,
+        'sf-tabs': Tabs,
+        'sf-tab': Tab,
+        'sf-page': Page,
+        'sf-table': Table,
+        'sf-button': Button,
+        "sf-tree": Tree
+      }
+    });
+  }
 }
-
-// auto install
-if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue);
-}
-
-module.exports = Object.assign({}, { install });
