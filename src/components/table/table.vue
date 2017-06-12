@@ -3,7 +3,7 @@
   <template v-if="showPage">
     <Page :current="currentPage" 
           :pageSize="pageSize" 
-          :total="cloneData.length"  
+          :total="total"  
           @on-change="onPageChange"></Page>
   </template>
   <table class="table table-hover table-striped table-condensed" :class="classes">
