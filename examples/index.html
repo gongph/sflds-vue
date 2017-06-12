@@ -60,8 +60,9 @@
               <!-- 表格组件 -->
               <sf-table :columns="columns" 
                         :data="tableDatas" 
+                        :total="39" 
                         :current="currentPage" 
-                        :page-size="1" 
+                        :page-size="20" 
                         :show-page="true" 
                         @on-page-change="onPageChange">
                         </sf-table>
