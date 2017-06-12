@@ -26,7 +26,7 @@
   <template v-if="showPage">
     <Page :current="currentPage" 
           :pageSize="pageSize" 
-          :total="cloneData.length" 
+          :total="total" 
           @on-change="onPageChange"></Page>
   </template>
 </template>

@@ -31,13 +31,6 @@
     name: 'page',
 	components: { Options },
 	mixins: [PageMixin],
-	props: {
-	  // 总数
-	  total: {
-	    type: Number,
-	    default: 0
-	  }
-	},
 	data () {
 	  return {
 	    currentPage: this.current,
