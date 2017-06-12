@@ -1,6 +1,10 @@
 # 法律法规组件文档
 基于 vue2.x 封装的法律法规系统组件，源码在[这里](https://github.com/gongph/sflds-vue)。
 
+## 组件结构图
+
+![preview](./media/components.png)
+
 ## 项目依赖
 - jquery 1.9以上版本
 - bootstrap(js/css)：该组件使用的是 v3.3.5 版本

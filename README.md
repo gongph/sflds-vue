@@ -4,6 +4,10 @@
 > why name is sflds ？
 >可能是 上(s)市法(f)律(l)法规数据库(database)系统(system)的简称
 
+## 组件结构图
+
+![preview](./docs/media/components.png)
+
 ## 项目依赖
 - jquery 1.9以上版本
 - bootstrap(js/css)：该组件使用的是 v3.3.5 版本
