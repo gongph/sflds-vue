@@ -34,7 +34,7 @@
       // 安装组件
       Vue.use(SfldsVue);
       new Vue({
-          el: '#app'
+        el: '#app'
       });
     });
   </script>
