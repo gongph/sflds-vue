@@ -19,7 +19,7 @@ input:focus{ box-shadow: 0 1px 5px 3px #C7D3DA; text-decoration:none;}
 input,img{ border:0;}
 .fl{ float:left;}
 .fr{ float:right;}
-a {color: #337ab7; text-decoration: none; cursor: pointer;}
+a {color: #337ab7; text-decoration: none;}
 a:hover{color:rgb(195, 18, 18)}
 a.blue,.blue{color:#2158B4;}
 a.blue2,.blue2{ color:#396FC9;}
@@ -115,7 +115,7 @@ background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d9f9ff), to(#a3e9fa))
 /*翻页*/
 .jump{margin:0px 0;float: right;}	
 .jump_text{float:right;margin:0 0 0 5px;line-height:33px;}
-.jump_text input{text-align: center;width:40px;border:rgba(212,212,212,1.00) 1px solid;height:30px;line-height:33px;background:#fff;}
+.jump_text input{width:40px;border:rgba(212,212,212,1.00) 1px solid;height:30px;line-height:33px;background:#fff;}
 input:checked+span{font-weight:bold; font-size:14px;}
 textarea{height:98%; min-height:50px;resize: none;}
 .ply-all{position: absolute;top:0px;right:0px;}
@@ -1401,3 +1401,42 @@ word-wrap:break-word;
 .dialog_icon_warning{ background:url(../images/warning.png) no-repeat 10px top;}
 .dialog_icon_danger{ background:url(../images/danger.png) no-repeat 10px top;}
 .dialog_info{border-color:#269abc;background-color:#31b0d5;}
+
+.sf-tree ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+.sf-tree ul li {
+    list-style: none;
+    margin: 8px 0;
+    padding: 0;
+    white-space: nowrap;
+    outline: 0;
+}
+
+.sf-tree li ul {
+    margin: 0;
+    padding: 0 0 0 18px;
+}
+
+.sf-tree-title {
+    display: inline-block;
+    margin: 0;
+    padding: 0 4px;
+    border-radius: 3px;
+    cursor: pointer;
+    vertical-align: top;
+    color: #495060;
+    transition: all .2s ease-in-out;
+}
+
+.sf-tree-title:hover {
+    background-color: #d5e8fc;
+}
+
+.sf-tree-arrow {
+    cursor: pointer;
+}

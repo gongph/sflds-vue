@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>sflds-vue project</title>
-  <link rel="stylesheet" type="text/css" href="./assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="./assets/style/css/style.css">
-  <script src="./assets/jquery/jquery-1.11.1.min.js"></script>
-  <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+  <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/skin-standard/css/style.css">
+  <script src="assets/jquery/jquery-1.11.1.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
   <div id="app">
@@ -54,9 +54,10 @@
 
         <!-- 右侧 -->
         <sf-aside align="right">
-          <!-- Tab页 -->
+          <!-- 标签页组件 -->
           <sf-tabs @show:tab="onShowTab" @shown:tab="onShownTab">
             <sf-tab id="t1" header="最新法规">
+              <!-- 表格组件 -->
               <sf-table :columns="columns" 
                         :data="tableDatas" 
                         :current="currentPage" 
@@ -65,7 +66,10 @@
                         @on-page-change="onPageChange">
                         </sf-table>
             </sf-tab>
-            <sf-tab id="t2" header="行政执法文书">2</sf-tab>
+            <sf-tab id="t2" header="行政执法文书">
+              <!-- 树形组件 -->
+              <sf-tree :data="treeData" @on-select-change="onSelectChange"></sf-tree>
+            </sf-tab>
             <sf-tab id="t3" header="司法判决书">3</sf-tab>
             <sf-tab id="t4" header="自律监管措施决定书">4</sf-tab>
           </sf-tabs>

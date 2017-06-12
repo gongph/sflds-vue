@@ -34,7 +34,32 @@ new Vue({
       { name: '李四', age: 25, address: '北京市丰台区七里庄'},
       { name: '王五', age: 30, address: '北京市海淀区二里庄'}
     ],
-    currentPage: 1 // 当前页
+    currentPage: 1, // 当前页
+    treeData: [{
+        title: '根节点-1',
+        expand: true,
+        children: [{
+          title: '子节点-1-1',
+          expand: true,
+          children: [{
+            title: '叶子节点'
+          }]
+        }]
+      }, {
+        title: '根节点-2',
+        expand: true,
+        children: [{
+          title: '子节点-2-1',
+          children: [{
+            title: '叶子节点'
+          }]
+        }]
+      }, {
+        title: '根节点-3',
+        children: [{
+          title: '叶子节点'
+        }]
+      }]
   },
   methods: {
     /**
@@ -61,6 +86,9 @@ new Vue({
      */
     onPageChange (pageInfo) {
       console.log(pageInfo);
+    },
+    onSelectChange (data) {
+      console.log(data);
     }
   }
 });
