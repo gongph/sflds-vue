@@ -879,8 +879,8 @@ var Button = {
   };
 
 var treeNode = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.visible)?_c('ul',{staticClass:"sf-tree-children"},[_c('li',[_vm._m(0),_vm._v(" "),_c('span',{staticClass:"sf-tree-title",domProps:{"innerHTML":_vm._s(_vm.data.title)},on:{"click":_vm.handleSelect}}),_vm._v(" "),_vm._l((_vm.data.children),function(item){return _c('tree-node',{key:item,attrs:{"data":item,"visible":_vm.data.expand}})})],2)]):_vm._e()},
-staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_c('i',{staticClass:"glyphicon glyphicon-plus"})])}],
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[(_vm.isFolder)?_c('span',{staticClass:"sf-tree-arrow",on:{"click":_vm.handleExpand}},[_c('i',{staticClass:"glyphicon",class:_vm.allowClasses})]):_vm._e(),_vm._v(" "),_c('span',{staticClass:"sf-tree-title",domProps:{"innerHTML":_vm._s(_vm.data.title)},on:{"click":_vm.handleSelect}}),_vm._v(" "),(_vm.isFolder)?_c('ul',{directives:[{name:"show",rawName:"v-show",value:(_vm.open),expression:"open"}]},_vm._l((_vm.data.children),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})):_vm._e()])},
+staticRenderFns: [],
     name: 'treeNode',
     props: {
       data: {
@@ -888,16 +888,50 @@ staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._
         default: function default$1 () {
           return {};
         }
+      }
+    },
+    data: function data () {
+      return {
+        open: false,
+      }
+    },
+    computed: {
+      isFolder: function isFolder () {
+        return this.data.children && this.data.children.length
       },
-      visible: {
-        type: Boolean,
-        default: false
+      allowClasses: function allowClasses () {
+        return 'glyphicon-chevron-' + (this.open ? 'down' : 'right');
+      }
+    },
+    methods: {
+      handleSelect: function handleSelect (e) {
+        this.dispatch('tree', 'selected', Assist.deepCopy(this.data));
+      },
+      handleExpand: function handleExpand () {
+        if (this.isFolder) {
+          this.open = !this.open;
+        }
+      },
+      dispatch: function dispatch (componentName, eventName, params) {
+      	var parent = this.$parent || this.$root;
+      	var name = parent.$options.name;
+        while(parent && name != componentName){
+          parent = parent.$parent;
+
+          if (parent) {
+            name = parent.$options.name;
+          }
+        }
+
+        if (parent) {
+          parent.$emit.apply(parent, [eventName].concat([params]));
+        }
       }
     }
   };
 
 var Tree = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_vm._l((_vm.data),function(item){return _c('tree-node',{key:item,attrs:{"data":item,"visible":""}})}),_vm._v(" "),(!_vm.data.length)?_c('div',[_vm._v("没有数据！")]):_vm._e()],2)},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_c('ul',_vm._l((_vm.data),function(item){return _c('tree-node',{key:item,attrs:{"data":item},on:{"on-selected":_vm.onSelected}})})),_vm._v(" "),(!_vm.data.length)?_c('div',[_vm._v("没有数据！")]):_vm._e()])},
 staticRenderFns: [],
     name: 'tree',
     components: { treeNode: treeNode },
@@ -908,6 +942,18 @@ staticRenderFns: [],
           return [];
         }
       }
+    },
+    methods: {
+      onSelected: function onSelected (data) {
+        this.$emit('on-select-change', data);
+      }
+    },
+    mounted: function mounted () {
+      var this$1 = this;
+
+      this.$on('selected', function (data) {
+        this$1.$emit('on-select-change', data);
+      });
     }
   };
 
