@@ -10,7 +10,7 @@
       total: {
         type: Number,
         default: 0
-      }
+      },
       // 每页显示条数
       pageSize: {
         type: Number,
