@@ -7,6 +7,7 @@
 <sf-table 
   :columns="columns" 
   :data="tableDatas" 
+  :total="200" 
   :current="currentPage" 
   :page-size="1" 
   :show-page="true" 
@@ -56,6 +57,7 @@ new Vue({
 | classes | String | `-` | 自定义 `class` 样式 |
 | columns | Array | `[]` | 自定义表格列 |
 | data | Array | `[]` | 服务端数据源 |
+| total | Number | `0` | 总数 |
 | show-page | Boolean | `true` | 是否显示分页 |
 | current | Number | `1` | 当前页 |
 | page-size | Number | `20` | 每页显示条数 |
