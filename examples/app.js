@@ -40,14 +40,14 @@ new Vue({
         expand: true,
         children: [{
           title: '子节点-1-1',
-          expand: true,
+          expand: false,
           children: [{
             title: '叶子节点'
           }]
         }]
       }, {
         title: '根节点-2',
-        expand: true,
+        expand: false,
         children: [{
           title: '子节点-2-1',
           children: [{
