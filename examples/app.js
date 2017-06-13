@@ -33,9 +33,9 @@ new Vue({
     ],
     // 表格数据
     tableDatas: [
-      // { name: '张三', age: 18, address: '北京市朝阳区'},
-      // { name: '李四', age: 25, address: '北京市丰台区七里庄'},
-      // { name: '王五', age: 30, address: '北京市海淀区二里庄'}
+      { name: '张三', age: 18, address: '北京市朝阳区'},
+      { name: '李四', age: 25, address: '北京市丰台区七里庄'},
+      { name: '王五', age: 30, address: '北京市海淀区二里庄'}
     ],
     currentPage: 1, // 当前页
     treeData: [{
