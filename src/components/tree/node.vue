@@ -27,7 +27,7 @@
     },
     data () {
       return {
-        open: false,
+        open: !!this.data.expand,
       }
     },
     computed: {
