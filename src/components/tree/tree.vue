@@ -4,7 +4,7 @@
       <tree-node 
         v-for="item in data" 
         :key="item" 
-        :data="item" @on-selected="onSelected">
+        :data="item">
       </tree-node>
     </ul>
     <div v-if="!data.length">没有数据！</div>
@@ -21,11 +21,6 @@
         default () {
           return [];
         }
-      }
-    },
-    methods: {
-      onSelected (data) {
-        this.$emit('on-select-change', data);
       }
     },
     mounted () {
