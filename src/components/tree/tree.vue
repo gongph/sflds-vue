@@ -11,6 +11,7 @@
   </div>
 </template>
 <script>
+  import Assist from '../../utils/assist.js';
   import treeNode from './node.vue';
   export default {
     name: 'tree',
@@ -23,10 +24,38 @@
         }
       }
     },
+    data () {
+      return {
+        children: []
+      }
+    },
     mounted () {
       this.$on('selected', data => {
-        this.$emit('on-select-change', data);
+        if (this.children.length <= 0) {
+          this.findComponentsDownward(this, 'treeNode');
+        }
+
+        this.children.forEach(node => {
+          this.$set(node.data, 'selected', false);
+        });
+        this.$set(data, 'selected', true);
+        this.$emit('on-select-change', Assist.deepCopy(data));
       })
+    },
+    methods: {
+      findComponentsDownward (context, componentName) {
+        const childrens = context.$children;
+        if (childrens.length) {
+          for (let i = 0, len = childrens.length; i < len; i++) {
+            const child = childrens[i];
+            const name = child.$options.name;
+            if (name === componentName) {
+              this.children.push(child);
+            }
+            this.findComponentsDownward(child, componentName);
+          }
+        }
+      }
     }
   }
 </script>
