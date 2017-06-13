@@ -1433,7 +1433,7 @@ word-wrap:break-word;
     transition: all .2s ease-in-out;
 }
 
-.sf-tree-title:hover {
+.sf-tree-title-selected, .sf-tree-title:hover {
     background-color: #d5e8fc;
 }
 
