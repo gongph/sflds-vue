@@ -11,12 +11,14 @@
       <col v-for="column in columns" :width="column.width">
     </colgroup>
     <thead>
-      <tr><th v-for="column in columns" :class="column.classes" v-text="column.title"></th></tr>
+      <tr>
+        <th v-for="column in columns" :class="column.classes" v-text="column.title"></th>
+      </tr>
     </thead>
     <tbody>
-      <template v-for="row in cloneData">
+      <template v-for="(row, index) in cloneData">
         <tr><td v-for="column in columns" 
-              v-html="renderTd(row, column)" 
+              v-html="renderTd(row, column, index)" 
               :key="row" 
               :class="column.classes"></td>
         </tr>
@@ -42,6 +44,10 @@
     props: {
       // 自定义样式
       classes: String,
+      showIndex: {
+        type: Boolean,
+        default: true
+      },
       // 是否显示分页
       showPage: {
         type: Boolean,
@@ -78,9 +84,9 @@
       }
     },
     methods: {
-      renderTd (row, column) {
+      renderTd (row, column, index) {
         if ('render' in column && Assist.typeof(column.render) === 'function') {
-          return column.render(row[column.key], row);
+          return column.render(row[column.key], row, index);
         } else {
           return row[column.key];
         }
