@@ -20,9 +20,11 @@
         <tr><td v-for="column in columns" 
               v-html="renderTd(row, column, index)" 
               :key="row" 
-              :class="column.classes"></td>
-        </tr>
+              :class="column.classes"></td></tr>
       </template>
+      <tr v-if="cloneData.length <= 0">
+        <td :colspan="columns.length" class="text-center font_red">没有符合条件的数据！</td>
+      </tr>
     </tbody>
   </table>
   <template v-if="showPage">
