@@ -146,7 +146,7 @@ var LinkMixin = {
       active: Boolean,
       target: {
         type: String,
-        default: '_blank'
+        default: '_self'
       }
     },
     computed: {
@@ -166,7 +166,7 @@ var LinkMixin = {
 var ToolbarItem = {
     render: function (c) {
       var linkEl, self = this;
-      linkEl = c('sf-link', {
+      linkEl = c('a', {
         attrs: self.attrsObject,
         on: {
           click: self.onClick
@@ -195,7 +195,7 @@ var Navbar = {
 var NavbarItem = {
     render: function (c) {
       var self = this;
-      return c('sf-link', {
+      return c('a', {
         class: {
           'active_nav': self.active ? true : false
         },
