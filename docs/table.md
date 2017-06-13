@@ -21,6 +21,9 @@ new Vue({
   data: {
     // 表格列
     columns: [
+      { title: '序号', key: null, render: function (data, row, index) {
+        return index + 1;
+      }},
       { title: '姓名', key: 'name', width: '5%' },
       { title: '年龄', key: 'age', render: function (data, row) {
         return row.name + ': ' + data;
