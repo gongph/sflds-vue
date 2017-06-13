@@ -796,7 +796,7 @@ var Assist = {
 };
 
 var Table = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showPage)?[_c('Page',{attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e(),_vm._v(" "),_c('table',{staticClass:"table table-hover table-striped table-condensed",class:_vm.classes},[_c('colgroup',_vm._l((_vm.columns),function(column){return _c('col',{attrs:{"width":column.width}})})),_vm._v(" "),_c('thead',[_c('tr',_vm._l((_vm.columns),function(column){return _c('th',{class:column.classes,domProps:{"textContent":_vm._s(column.title)}})}))]),_vm._v(" "),_c('tbody',[_vm._l((_vm.cloneData),function(row){return [_c('tr',_vm._l((_vm.columns),function(column){return _c('td',{key:row,class:column.classes,domProps:{"innerHTML":_vm._s(_vm.renderTd(row, column))}})}))]})],2)]),_vm._v(" "),(_vm.showPage)?[_c('Page',{attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e()],2)},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showPage)?[_c('Page',{attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e(),_vm._v(" "),_c('table',{staticClass:"table table-hover table-striped table-condensed",class:_vm.classes},[_c('colgroup',_vm._l((_vm.columns),function(column){return _c('col',{attrs:{"width":column.width}})})),_vm._v(" "),_c('thead',[_c('tr',_vm._l((_vm.columns),function(column){return _c('th',{class:column.classes,domProps:{"textContent":_vm._s(column.title)}})}))]),_vm._v(" "),_c('tbody',[_vm._l((_vm.cloneData),function(row,index){return [_c('tr',_vm._l((_vm.columns),function(column){return _c('td',{key:row,class:column.classes,domProps:{"innerHTML":_vm._s(_vm.renderTd(row, column, index))}})}))]})],2)]),_vm._v(" "),(_vm.showPage)?[_c('Page',{attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e()],2)},
 staticRenderFns: [],
     name: 'table',
     components: { Page: Page },
@@ -804,6 +804,10 @@ staticRenderFns: [],
     props: {
       // 自定义样式
       classes: String,
+      showIndex: {
+        type: Boolean,
+        default: true
+      },
       // 是否显示分页
       showPage: {
         type: Boolean,
@@ -840,9 +844,9 @@ staticRenderFns: [],
       }
     },
     methods: {
-      renderTd: function renderTd (row, column) {
+      renderTd: function renderTd (row, column, index) {
         if ('render' in column && Assist.typeof(column.render) === 'function') {
-          return column.render(row[column.key], row);
+          return column.render(row[column.key], row, index);
         } else {
           return row[column.key];
         }
