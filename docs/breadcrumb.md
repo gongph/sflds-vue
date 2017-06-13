@@ -1,5 +1,5 @@
 # 面包屑组件
-面包屑组件是 [position](./position.html) 组件的子组件。
+面包屑组件是 [sf-position](./position.html) 组件的子组件。
 
 ## 示例代码
 

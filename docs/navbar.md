@@ -1,5 +1,5 @@
 # 导航栏组件
-导航栏组件是 [header](./header.html) 组件的子组件。
+导航栏组件是 [sf-header](./header.html) 组件的子组件。
 
 ## 示例代码
 

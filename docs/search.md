@@ -1,5 +1,5 @@
 # 查询组件
-查询组件是 [aside](./aside.html) 组件的子组件。
+查询组件是 [sf-aside](./aside.html) 组件的子组件。
 
 ## 示例代码
 
