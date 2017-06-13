@@ -881,7 +881,7 @@ var Button = {
   };
 
 var treeNode = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[(_vm.isFolder)?_c('span',{staticClass:"sf-tree-arrow",on:{"click":_vm.handleExpand}},[_c('i',{staticClass:"glyphicon",class:_vm.allowClasses})]):_vm._e(),_vm._v(" "),_c('span',{staticClass:"sf-tree-title",domProps:{"innerHTML":_vm._s(_vm.data.title)},on:{"click":_vm.handleSelect}}),_vm._v(" "),(_vm.isFolder)?_c('ul',{directives:[{name:"show",rawName:"v-show",value:(_vm.open),expression:"open"}]},_vm._l((_vm.data.children),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})):_vm._e()])},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[(_vm.isFolder)?_c('span',{staticClass:"sf-tree-arrow",on:{"click":_vm.handleExpand}},[_c('i',{staticClass:"glyphicon",class:_vm.allowClasses})]):_vm._e(),_vm._v(" "),_c('span',{class:_vm.titleClasses,domProps:{"innerHTML":_vm._s(_vm.data.title)},on:{"click":_vm.handleSelect}}),_vm._v(" "),(_vm.isFolder)?_c('ul',{directives:[{name:"show",rawName:"v-show",value:(_vm.open),expression:"open"}]},_vm._l((_vm.data.children),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})):_vm._e()])},
 staticRenderFns: [],
     name: 'treeNode',
     props: {
@@ -903,11 +903,22 @@ staticRenderFns: [],
       },
       allowClasses: function allowClasses () {
         return 'glyphicon-chevron-' + (this.open ? 'down' : 'right');
+      },
+      titleClasses: function titleClasses () {
+        return [
+          'sf-tree-title',
+          {
+            'sf-tree-title-selected': this.data.selected
+          }
+        ]
       }
     },
     methods: {
       handleSelect: function handleSelect (e) {
-        this.dispatch('tree', 'selected', Assist.deepCopy(this.data));
+        if (this.data.selected) {
+          this.data.selected = false;
+        }
+        this.dispatch('tree', 'selected', this.data);
       },
       handleExpand: function handleExpand () {
         if (this.isFolder) {
@@ -919,12 +930,10 @@ staticRenderFns: [],
       	var name = parent.$options.name;
         while(parent && name != componentName){
           parent = parent.$parent;
-
           if (parent) {
             name = parent.$options.name;
           }
         }
-
         if (parent) {
           parent.$emit.apply(parent, [eventName].concat([params]));
         }
@@ -933,7 +942,7 @@ staticRenderFns: [],
   };
 
 var Tree = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_c('ul',_vm._l((_vm.data),function(item){return _c('tree-node',{key:item,attrs:{"data":item},on:{"on-selected":_vm.onSelected}})})),_vm._v(" "),(!_vm.data.length)?_c('div',[_vm._v("没有数据！")]):_vm._e()])},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_c('ul',_vm._l((_vm.data),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})),_vm._v(" "),(!_vm.data.length)?_c('div',[_vm._v("没有数据！")]):_vm._e()])},
 staticRenderFns: [],
     name: 'tree',
     components: { treeNode: treeNode },
@@ -945,17 +954,42 @@ staticRenderFns: [],
         }
       }
     },
-    methods: {
-      onSelected: function onSelected (data) {
-        this.$emit('on-select-change', data);
+    data: function data () {
+      return {
+        children: []
       }
     },
     mounted: function mounted () {
       var this$1 = this;
 
       this.$on('selected', function (data) {
-        this$1.$emit('on-select-change', data);
+        if (this$1.children.length <= 0) {
+          this$1.findComponentsDownward(this$1, 'treeNode');
+        }
+
+        this$1.children.forEach(function (node) {
+          this$1.$set(node.data, 'selected', false);
+        });
+        this$1.$set(data, 'selected', true);
+        this$1.$emit('on-select-change', Assist.deepCopy(data));
       });
+    },
+    methods: {
+      findComponentsDownward: function findComponentsDownward (context, componentName) {
+        var this$1 = this;
+
+        var childrens = context.$children;
+        if (childrens.length) {
+          for (var i = 0, len = childrens.length; i < len; i++) {
+            var child = childrens[i];
+            var name = child.$options.name;
+            if (name === componentName) {
+              this$1.children.push(child);
+            }
+            this$1.findComponentsDownward(child, componentName);
+          }
+        }
+      }
     }
   };
 
