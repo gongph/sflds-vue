@@ -3,7 +3,7 @@
   export default {
     render: function (c) {
       var linkEl, self = this;
-      linkEl = c('sf-link', {
+      linkEl = c('a', {
         attrs: self.attrsObject,
         on: {
           click: self.onClick
