@@ -17,4 +17,4 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | :---: | :---: | :---: | :--- |
-| align | String | - | 侧边栏位置，可选值为 `left` , `right`|
+| align | String | - | 侧边栏位置，可选值为 `left` , `right` , `tan_left`|
