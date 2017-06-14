@@ -792,6 +792,42 @@ var Assist = {
       }
     }
     return o;
+  },
+  /**
+   * 将节点数据转成成树形结构
+   * @param  {ArrayObject} nodes  服务端节点集合数据
+   */
+  transformToTreeFormat: function transformToTreeFormat (nodes) {
+    var key = "id",
+          parentKey = "pId",
+          childrenKey  = "children";
+
+    if (!key || key == "" || !nodes) { return []; }
+    if (this.typeof(nodes) === 'array') {
+      var r = [];
+      var tmpMap = {};
+      // 先将所有节点对象保存到临时 map 中
+      // map中的key是节点对象中的 id 值
+      for (var i = 0, len = nodes.length; i < len; i++) {
+        tmpMap[nodes[i][key]] = nodes[i];
+      }
+      for(var i$1 = 0, len$1 = nodes.length; i$1 < len$1; i$1++) {
+        // 如果tmpMap中有对应的父节点对象存在，且
+        // 当前节点的 id !== pId 的值
+        if (tmpMap[nodes[i$1][parentKey]] && nodes[i$1][key] !== nodes[i$1][parentKey]) {
+          // 如果父节点没有 children 属性
+          if (!tmpMap[nodes[i$1][parentKey]][childrenKey]) {
+            tmpMap[nodes[i$1][parentKey]][childrenKey] = [];
+          }
+          tmpMap[nodes[i$1][parentKey]][childrenKey].push(nodes[i$1]);
+        } else {
+          r.push(nodes[i$1]);
+        }
+      }
+      return r;
+    } else {
+      return [nodes];
+    }
   }
 };
 
@@ -881,7 +917,7 @@ var Button = {
   };
 
 var treeNode = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[(_vm.isFolder)?_c('span',{staticClass:"sf-tree-arrow",on:{"click":_vm.handleExpand}},[_c('i',{staticClass:"glyphicon",class:_vm.allowClasses})]):_vm._e(),_vm._v(" "),_c('span',{class:_vm.titleClasses,domProps:{"innerHTML":_vm._s(_vm.data.title)},on:{"click":_vm.handleSelect}}),_vm._v(" "),(_vm.isFolder)?_c('ul',{directives:[{name:"show",rawName:"v-show",value:(_vm.open),expression:"open"}]},_vm._l((_vm.data.children),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})):_vm._e()])},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[(_vm.isFolder)?_c('span',{staticClass:"sf-tree-arrow",on:{"click":_vm.handleExpand}},[_c('i',{staticClass:"glyphicon",class:_vm.allowClasses})]):_vm._e(),_vm._v(" "),_c('span',{class:_vm.titleClasses,domProps:{"innerHTML":_vm._s(_vm.data.name)},on:{"click":_vm.handleSelect}}),_vm._v(" "),(_vm.isFolder)?_c('ul',{directives:[{name:"show",rawName:"v-show",value:(_vm.open),expression:"open"}]},_vm._l((_vm.data.children),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})):_vm._e()])},
 staticRenderFns: [],
     name: 'treeNode',
     props: {
@@ -942,7 +978,7 @@ staticRenderFns: [],
   };
 
 var Tree = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_c('ul',_vm._l((_vm.data),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})),_vm._v(" "),(!_vm.data.length)?_c('div',[_vm._v("没有数据！")]):_vm._e()])},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_c('ul',_vm._l((_vm.cloneData),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})),_vm._v(" "),(!_vm.data.length)?_c('div',[_vm._v("没有数据！")]):_vm._e()])},
 staticRenderFns: [],
     name: 'tree',
     components: { treeNode: treeNode },
@@ -956,7 +992,13 @@ staticRenderFns: [],
     },
     data: function data () {
       return {
-        children: []
+        children: [],
+        cloneData: Assist.transformToTreeFormat(Assist.deepCopy(this.data))
+      }
+    },
+    watch: {
+      data: function data () {
+        this.cloneData = Assist.transformToTreeFormat(Assist.deepCopy(this.data));
       }
     },
     mounted: function mounted () {
