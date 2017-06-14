@@ -1403,40 +1403,45 @@ word-wrap:break-word;
 .dialog_info{border-color:#269abc;background-color:#31b0d5;}
 
 .sf-tree ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+}
+
+.sf-tree li {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sf-tree ul li {
-    list-style: none;
-    margin: 8px 0;
-    padding: 0;
-    white-space: nowrap;
-    outline: 0;
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+  white-space: nowrap;
+  outline: 0;
 }
 
 .sf-tree li ul {
-    margin: 0;
-    padding: 0 0 0 18px;
+  margin: 0;
+  padding: 0 0 0 18px;
 }
 
 .sf-tree-title {
-    display: inline-block;
-    margin: 0;
-    padding: 0 4px;
-    border-radius: 3px;
-    cursor: pointer;
-    vertical-align: top;
-    color: #495060;
-    transition: all .2s ease-in-out;
+  display: inline-block;
+  margin: 0;
+  padding: 0 4px;
+  border-radius: 3px;
+  cursor: pointer;
+  vertical-align: top;
+  color: #495060;
+  transition: all .2s ease-in-out;
 }
 
 .sf-tree-title-selected, .sf-tree-title:hover {
-    background-color: #d5e8fc;
+  background-color: #d5e8fc;
 }
 
 .sf-tree-arrow {
-    cursor: pointer;
+  cursor: pointer;
 }
