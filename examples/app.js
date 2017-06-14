@@ -62,7 +62,14 @@ new Vue({
         children: [{
           title: '叶子节点'
         }]
-      }]
+      }],
+    nodes: [
+      {id: 1, pId: 0, name: '根节点-1', expand: true},
+      {id: 11, pId: 1, name: '子节点-1-1'},
+      {id: 12, pId: 1, name: '子节点-1-2'},
+      {id: 111, pId: 11, name: '叶子节点-1-1-1'},
+      {id: 2, pId: 0, name: '根节点-2'}
+    ]
   },
   methods: {
     /**
