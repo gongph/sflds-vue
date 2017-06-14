@@ -3,7 +3,7 @@
     <span class="sf-tree-arrow" @click="handleExpand" v-if="isFolder">
       <i class="glyphicon" :class="allowClasses"></i>
     </span>
-    <span :class="titleClasses" v-html="data.name" @click="handleSelect"></span>
+    <span :class="titleClasses" v-text="data.name" @click="handleSelect" :title="data.name"></span>
     <ul v-show="open" v-if="isFolder">
       <tree-node 
         v-for="item in data.children" 
