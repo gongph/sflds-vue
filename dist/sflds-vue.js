@@ -443,7 +443,7 @@ staticRenderFns: [],
   };
 
 var Search = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"search"},[_c('div',{staticClass:"search_input"},[_c('span',[_c('input',{attrs:{"type":"text","placeholder":_vm.placeholder}})]),_vm._v(" "),_c('span',[_c('input',{attrs:{"type":"button","value":_vm.buttonText},on:{"click":function($event){$event.stopPropagation();_vm.handleSearch($event);}}})])]),_vm._v(" "),_c('div',{staticClass:"search_more"},[_c('a',{attrs:{"href":_vm.href}},[_vm._v(_vm._s(_vm.moreText))])])])},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"search"},[_c('div',{staticClass:"search_input"},[_c('span',[_c('input',{attrs:{"type":"text","placeholder":_vm.placeholder}})]),_vm._v(" "),_c('span',[_c('input',{attrs:{"type":"button","value":_vm.buttonText},on:{"click":function($event){$event.stopPropagation();_vm.handleSearch($event);}}})])]),_vm._v(" "),(_vm.showMore)?_c('div',{staticClass:"search_more"},[_c('a',{attrs:{"href":_vm.href}},[_vm._v(_vm._s(_vm.moreText))])]):_vm._e()])},
 staticRenderFns: [],
     props: {
       placeholder: {
@@ -461,6 +461,10 @@ staticRenderFns: [],
       moreText: {
         type: String,
         default: '高级查询>>'
+      },
+      showMore: {
+        type: Boolean,
+        default:false
       }
     },
     methods: {
