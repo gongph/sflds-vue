@@ -19,7 +19,7 @@ input:focus{ box-shadow: 0 1px 5px 3px #C7D3DA; text-decoration:none;}
 input,img{ border:0;}
 .fl{ float:left;}
 .fr{ float:right;}
-a {color: #337ab7; text-decoration: none;}
+a {color: #337ab7;cursor: pointer;text-decoration: none;}
 a:hover{color:rgb(195, 18, 18)}
 a.blue,.blue{color:#2158B4;}
 a.blue2,.blue2{ color:#396FC9;}
@@ -115,7 +115,7 @@ background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d9f9ff), to(#a3e9fa))
 /*翻页*/
 .jump{margin:0px 0;float: right;}	
 .jump_text{float:right;margin:0 0 0 5px;line-height:33px;}
-.jump_text input{width:40px;border:rgba(212,212,212,1.00) 1px solid;height:30px;line-height:33px;background:#fff;}
+.jump_text input{width:40px;border:rgba(212,212,212,1.00) 1px solid;height:30px;line-height:33px;background:#fff;text-align: center;}
 input:checked+span{font-weight:bold; font-size:14px;}
 textarea{height:98%; min-height:50px;resize: none;}
 .ply-all{position: absolute;top:0px;right:0px;}
