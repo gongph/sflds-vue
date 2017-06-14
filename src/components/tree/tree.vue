@@ -2,7 +2,7 @@
   <div class="sf-tree">
     <ul>
       <tree-node 
-        v-for="item in data" 
+        v-for="item in cloneData" 
         :key="item" 
         :data="item">
       </tree-node>
@@ -26,7 +26,13 @@
     },
     data () {
       return {
-        children: []
+        children: [],
+        cloneData: Assist.transformToTreeFormat(Assist.deepCopy(this.data))
+      }
+    },
+    watch: {
+      data () {
+        this.cloneData = Assist.transformToTreeFormat(Assist.deepCopy(this.data));
       }
     },
     mounted () {
