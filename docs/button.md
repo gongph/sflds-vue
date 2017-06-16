@@ -1,5 +1,5 @@
 # 按钮组件
-按钮组件使用的是 `bootstrap` 的样式，像下面的示例代码。
+按钮组件使用的是 [bootstrap](http://v3.bootcss.com/css/#buttons-options) 的样式，像下面的示例代码。
 
 ## 示例代码
 
@@ -35,6 +35,8 @@ new Vue({
 | danger | Boolean | `false` | 设置按钮组件的 `btn-danger` 样式 |
 | info | Boolean | `false` | 设置按钮组件的 `btn-info` 样式 |
 | warning | Boolean | `false` | 设置按钮组件的 `btn-warning` 样式 |
+| link | Boolean | `false` | 设置按钮组件的 `btn-link` 样式 |
+| default | Boolean | `false` | 设置按钮组件的 `btn-default` 样式 |
 
 
 以下是 `<sf-button>` 组件所有的事件：
