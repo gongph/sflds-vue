@@ -24,12 +24,14 @@
       success: Boolean,
       info: Boolean,
       danger: Boolean,
-      warning: Boolean
+      warning: Boolean,
+      link: Boolean,
+      default: Boolean
     },
     computed: {
       classObject () {
         var self = this, co = {};
-        ['primary', 'success', 'info', 'danger', 'warning'].forEach(function (prop, index) {
+        ['primary', 'success', 'info', 'danger', 'warning', 'link', 'default'].forEach(function (prop, index) {
           if (self[prop]) co['btn-' + prop] = true;
         });
         return co;
