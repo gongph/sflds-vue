@@ -81,12 +81,15 @@
       }
     },
     watch: {
+      // 监听当前页
       current () {
         this.currentPage = this.current;
       },
+      // 监听服务端数据
       data () {
         this.cloneData = Assist.deepCopy(this.data);
       },
+      // 监听列
       columns () {
         this.cloneColumns = Assist.deepCopy(this.columns);
       }
