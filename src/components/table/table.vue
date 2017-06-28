@@ -77,7 +77,7 @@
       	currentPage: this.current,
         cloneColumns: Assist.deepCopy(this.columns),
         cloneData: Assist.deepCopy(this.data),
-        timestamp: new Date().getTime()
+        timestamp: new Date().getTime() // 时间戳
       }
     },
     watch: {
