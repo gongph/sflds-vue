@@ -2,7 +2,7 @@
  * sflds-vue 3.0.0
  * sflds project build with vue2.x
  * 
- * Copyright 2017, gongph <gongph@foxmail.com>
+ * Copyright 2017-06-28 16:19:44, gongph <gongph@foxmail.com>
  * 
  */
  (function (global, factory) {
