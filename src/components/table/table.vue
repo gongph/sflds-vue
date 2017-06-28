@@ -3,7 +3,8 @@
   <template v-if="showPage">
     <Page :current="currentPage" 
           :pageSize="pageSize" 
-          :total="total"  
+          :total="total" 
+          :key="timestamp" 
           @on-change="onPageChange"></Page>
   </template>
   <table class="table table-hover table-striped table-condensed" :class="classes">
@@ -31,6 +32,7 @@
     <Page :current="currentPage" 
           :pageSize="pageSize" 
           :total="total" 
+          :key="timestamp" 
           @on-change="onPageChange"></Page>
   </template>
 </template>
@@ -74,10 +76,14 @@
       return {
       	currentPage: this.current,
         cloneColumns: Assist.deepCopy(this.columns),
-        cloneData: Assist.deepCopy(this.data)
+        cloneData: Assist.deepCopy(this.data),
+        timestamp: new Date().getTime()
       }
     },
     watch: {
+      current () {
+        this.currentPage = this.current;
+      },
       data () {
         this.cloneData = Assist.deepCopy(this.data);
       },

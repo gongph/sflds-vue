@@ -38,6 +38,7 @@ new Vue({
       { name: '王五', age: 30, address: '北京市海淀区二里庄'}
     ],
     currentPage: 1, // 当前页
+    total: 39, // 总条数
     nodes: [
       {id: "1", pId: 0, name: '根节点-1', expand: true},
       {id: 11, pId: "1", name: '子节点-1-1'},
