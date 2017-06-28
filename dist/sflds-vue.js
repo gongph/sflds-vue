@@ -877,12 +877,15 @@ staticRenderFns: [],
       }
     },
     watch: {
+      // 监听当前页
       current: function current () {
         this.currentPage = this.current;
       },
+      // 监听服务端数据
       data: function data () {
         this.cloneData = Assist.deepCopy(this.data);
       },
+      // 监听列
       columns: function columns () {
         this.cloneColumns = Assist.deepCopy(this.columns);
       }
