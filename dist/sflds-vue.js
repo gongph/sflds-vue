@@ -2,7 +2,7 @@
  * sflds-vue 3.0.0
  * sflds project build with vue2.x
  * 
- * Copyright 2017-06-28 16:19:44, gongph <gongph@foxmail.com>
+ * Copyright 2017-08-23 14:16:13, gongph <gongph@foxmail.com>
  * 
  */
  (function (global, factory) {
@@ -599,7 +599,7 @@ staticRenderFns: [],
   }
 
   var Options = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.showJump)?_c('div',{staticClass:"jump"},[_c('span',{staticClass:"jump_text"},[_c('button',{staticClass:"btn btn-primary btn-xs",attrs:{"type":"button"},on:{"click":_vm.changePage}},[_vm._v("GO")])]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_vm._v("页")]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_c('input',{staticClass:"form-control2 goPage",attrs:{"type":"text"},domProps:{"value":_vm._current}})]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_vm._v("\n    共有"+_vm._s(_vm.allPages)+"页，"+_vm._s(_vm.total)+"条记录。跳到\n  ")])]):_vm._e()},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.showJump)?_c('div',{staticClass:"jump"},[_c('span',{staticClass:"jump_text"},[_c('button',{staticClass:"btn btn-primary btn-xs",attrs:{"type":"button","disabled":_vm.total <= 0 ? true : false},on:{"click":_vm.changePage}},[_vm._v("GO")])]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_vm._v("页")]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_c('input',{staticClass:"form-control2 goPage",attrs:{"type":"text"},domProps:{"value":_vm._current}})]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_vm._v("\n    共有"+_vm._s(_vm.allPages)+"页，"+_vm._s(_vm.total)+"条记录。跳到\n  ")])]):_vm._e()},
 staticRenderFns: [],
     name: 'pageOptions',
     props: {
