@@ -2,7 +2,7 @@
  * sflds-vue 3.0.0
  * sflds project build with vue2.x
  * 
- * Copyright 2017, gongph <gongph@foxmail.com>
+ * Copyright 2017-08-23 14:16:13, gongph <gongph@foxmail.com>
  * 
  */
  (function (global, factory) {
@@ -146,7 +146,7 @@ var LinkMixin = {
       active: Boolean,
       target: {
         type: String,
-        default: '_blank'
+        default: '_self'
       }
     },
     computed: {
@@ -166,7 +166,7 @@ var LinkMixin = {
 var ToolbarItem = {
     render: function (c) {
       var linkEl, self = this;
-      linkEl = c('sf-link', {
+      linkEl = c('a', {
         attrs: self.attrsObject,
         on: {
           click: self.onClick
@@ -195,7 +195,7 @@ var Navbar = {
 var NavbarItem = {
     render: function (c) {
       var self = this;
-      return c('sf-link', {
+      return c('a', {
         class: {
           'active_nav': self.active ? true : false
         },
@@ -443,7 +443,7 @@ staticRenderFns: [],
   };
 
 var Search = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"search"},[_c('div',{staticClass:"search_input"},[_c('span',[_c('input',{attrs:{"type":"text","placeholder":_vm.placeholder}})]),_vm._v(" "),_c('span',[_c('input',{attrs:{"type":"button","value":_vm.buttonText},on:{"click":function($event){$event.stopPropagation();_vm.handleSearch($event);}}})])]),_vm._v(" "),_c('div',{staticClass:"search_more"},[_c('a',{attrs:{"href":_vm.href}},[_vm._v(_vm._s(_vm.moreText))])])])},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"search"},[_c('div',{staticClass:"search_input"},[_c('span',[_c('input',{attrs:{"type":"text","placeholder":_vm.placeholder}})]),_vm._v(" "),_c('span',[_c('input',{attrs:{"type":"button","value":_vm.buttonText},on:{"click":function($event){$event.stopPropagation();_vm.handleSearch($event);}}})])]),_vm._v(" "),(_vm.showMore)?_c('div',{staticClass:"search_more"},[_c('a',{attrs:{"href":_vm.href}},[_vm._v(_vm._s(_vm.moreText))])]):_vm._e()])},
 staticRenderFns: [],
     props: {
       placeholder: {
@@ -461,6 +461,10 @@ staticRenderFns: [],
       moreText: {
         type: String,
         default: '高级查询>>'
+      },
+      showMore: {
+        type: Boolean,
+        default:false
       }
     },
     methods: {
@@ -595,7 +599,7 @@ staticRenderFns: [],
   }
 
   var Options = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.showJump)?_c('div',{staticClass:"jump"},[_c('span',{staticClass:"jump_text"},[_c('button',{staticClass:"btn btn-primary btn-xs",attrs:{"type":"button"},on:{"click":_vm.changePage}},[_vm._v("GO")])]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_vm._v("页")]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_c('input',{staticClass:"form-control2 goPage",attrs:{"type":"text"},domProps:{"value":_vm._current}})]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_vm._v("\n    共有"+_vm._s(_vm.allPages)+"页，"+_vm._s(_vm.total)+"条记录。跳到\n  ")])]):_vm._e()},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.showJump)?_c('div',{staticClass:"jump"},[_c('span',{staticClass:"jump_text"},[_c('button',{staticClass:"btn btn-primary btn-xs",attrs:{"type":"button","disabled":_vm.total <= 0 ? true : false},on:{"click":_vm.changePage}},[_vm._v("GO")])]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_vm._v("页")]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_c('input',{staticClass:"form-control2 goPage",attrs:{"type":"text"},domProps:{"value":_vm._current}})]),_vm._v(" "),_c('span',{staticClass:"jump_text"},[_vm._v("\n    共有"+_vm._s(_vm.allPages)+"页，"+_vm._s(_vm.total)+"条记录。跳到\n  ")])]):_vm._e()},
 staticRenderFns: [],
     name: 'pageOptions',
     props: {
@@ -792,11 +796,47 @@ var Assist = {
       }
     }
     return o;
+  },
+  /**
+   * 将节点数据转成成树形结构
+   * @param  {ArrayObject} nodes  服务端节点集合数据
+   */
+  transformToTreeFormat: function transformToTreeFormat (nodes) {
+    var key = "id",
+          parentKey = "pId",
+          childrenKey  = "children";
+
+    if (!key || key == "" || !nodes) { return []; }
+    if (this.typeof(nodes) === 'array') {
+      var r = [];
+      var tmpMap = {};
+      // 先将所有节点对象保存到临时 map 中
+      // map中的key是节点对象中的 id 值
+      for (var i = 0, len = nodes.length; i < len; i++) {
+        tmpMap[nodes[i][key]] = nodes[i];
+      }
+      for(var i$1 = 0, len$1 = nodes.length; i$1 < len$1; i$1++) {
+        // 如果tmpMap中有对应的父节点对象存在，且
+        // 当前节点的 id !== pId 的值
+        if (tmpMap[nodes[i$1][parentKey]] && nodes[i$1][key] !== nodes[i$1][parentKey]) {
+          // 如果父节点没有 children 属性
+          if (!tmpMap[nodes[i$1][parentKey]][childrenKey]) {
+            tmpMap[nodes[i$1][parentKey]][childrenKey] = [];
+          }
+          tmpMap[nodes[i$1][parentKey]][childrenKey].push(nodes[i$1]);
+        } else {
+          r.push(nodes[i$1]);
+        }
+      }
+      return r;
+    } else {
+      return [nodes];
+    }
   }
 };
 
 var Table = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showPage)?[_c('Page',{attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e(),_vm._v(" "),_c('table',{staticClass:"table table-hover table-striped table-condensed",class:_vm.classes},[_c('colgroup',_vm._l((_vm.columns),function(column){return _c('col',{attrs:{"width":column.width}})})),_vm._v(" "),_c('thead',[_c('tr',_vm._l((_vm.columns),function(column){return _c('th',{class:column.classes,domProps:{"textContent":_vm._s(column.title)}})}))]),_vm._v(" "),_c('tbody',[_vm._l((_vm.cloneData),function(row,index){return [_c('tr',_vm._l((_vm.columns),function(column){return _c('td',{key:row,class:column.classes,domProps:{"innerHTML":_vm._s(_vm.renderTd(row, column, index))}})}))]})],2)]),_vm._v(" "),(_vm.showPage)?[_c('Page',{attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e()],2)},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showPage)?[_c('Page',{key:_vm.timestamp,attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e(),_vm._v(" "),_c('table',{staticClass:"table table-hover table-striped table-condensed",class:_vm.classes},[_c('colgroup',_vm._l((_vm.columns),function(column){return _c('col',{attrs:{"width":column.width}})})),_vm._v(" "),_c('thead',[_c('tr',_vm._l((_vm.columns),function(column){return _c('th',{class:column.classes,domProps:{"textContent":_vm._s(column.title)}})}))]),_vm._v(" "),_c('tbody',[_vm._l((_vm.cloneData),function(row,index){return [_c('tr',_vm._l((_vm.columns),function(column){return _c('td',{key:row,class:column.classes,domProps:{"innerHTML":_vm._s(_vm.renderTd(row, column, index))}})}))]}),_vm._v(" "),(_vm.cloneData.length <= 0)?_c('tr',[_c('td',{staticClass:"text-center font_red",attrs:{"colspan":_vm.columns.length}},[_vm._v("没有符合条件的数据！")])]):_vm._e()],2)]),_vm._v(" "),(_vm.showPage)?[_c('Page',{key:_vm.timestamp,attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e()],2)},
 staticRenderFns: [],
     name: 'table',
     components: { Page: Page },
@@ -832,13 +872,20 @@ staticRenderFns: [],
       return {
       	currentPage: this.current,
         cloneColumns: Assist.deepCopy(this.columns),
-        cloneData: Assist.deepCopy(this.data)
+        cloneData: Assist.deepCopy(this.data),
+        timestamp: new Date().getTime() // 时间戳
       }
     },
     watch: {
+      // 监听当前页
+      current: function current () {
+        this.currentPage = this.current;
+      },
+      // 监听服务端数据
       data: function data () {
         this.cloneData = Assist.deepCopy(this.data);
       },
+      // 监听列
       columns: function columns () {
         this.cloneColumns = Assist.deepCopy(this.columns);
       }
@@ -860,18 +907,41 @@ staticRenderFns: [],
 
 var Button = {
     render: function (c) {
-      var buttonEl, self = this;
+      var buttonEl, tagEl, self = this;
+      
       buttonEl = c('button', {
-        class: {
-          'btn': true,
-          'btn-primary': true
-        },
+        staticClass: 'btn',
+        class: self.classObject,
         on: {
           click: self.onClick
         }
       }, [self.$slots.default]);
 
+      if (self.tag) {
+        tagEl = c(self.tag, { class: this.tagClass ? this.tagClass : '' }, [buttonEl]);
+        return tagEl;
+      }
       return buttonEl;
+    },
+    props: {
+      tag: String,
+      tagClass: String,
+      primary: Boolean,
+      success: Boolean,
+      info: Boolean,
+      danger: Boolean,
+      warning: Boolean,
+      link: Boolean,
+      default: Boolean
+    },
+    computed: {
+      classObject: function classObject () {
+        var self = this, co = {};
+        ['primary', 'success', 'info', 'danger', 'warning', 'link', 'default'].forEach(function (prop, index) {
+          if (self[prop]) { co['btn-' + prop] = true; }
+        });
+        return co;
+      }
     },
     methods: {
       onClick: function onClick (event) {
@@ -881,7 +951,7 @@ var Button = {
   };
 
 var treeNode = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[(_vm.isFolder)?_c('span',{staticClass:"sf-tree-arrow",on:{"click":_vm.handleExpand}},[_c('i',{staticClass:"glyphicon",class:_vm.allowClasses})]):_vm._e(),_vm._v(" "),_c('span',{staticClass:"sf-tree-title",domProps:{"innerHTML":_vm._s(_vm.data.title)},on:{"click":_vm.handleSelect}}),_vm._v(" "),(_vm.isFolder)?_c('ul',{directives:[{name:"show",rawName:"v-show",value:(_vm.open),expression:"open"}]},_vm._l((_vm.data.children),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})):_vm._e()])},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[(_vm.isFolder)?_c('span',{staticClass:"sf-tree-arrow",on:{"click":_vm.handleExpand}},[_c('i',{staticClass:"glyphicon",class:_vm.allowClasses})]):_vm._e(),_vm._v(" "),_c('span',{class:_vm.titleClasses,attrs:{"title":_vm.data.name},domProps:{"innerHTML":_vm._s(_vm.data.name)},on:{"click":_vm.handleSelect}}),_vm._v(" "),(_vm.isFolder)?_c('ul',{directives:[{name:"show",rawName:"v-show",value:(_vm.open),expression:"open"}]},_vm._l((_vm.data.children),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})):_vm._e()])},
 staticRenderFns: [],
     name: 'treeNode',
     props: {
@@ -903,11 +973,22 @@ staticRenderFns: [],
       },
       allowClasses: function allowClasses () {
         return 'glyphicon-chevron-' + (this.open ? 'down' : 'right');
+      },
+      titleClasses: function titleClasses () {
+        return [
+          'sf-tree-title',
+          {
+            'sf-tree-title-selected': this.data.selected
+          }
+        ]
       }
     },
     methods: {
       handleSelect: function handleSelect (e) {
-        this.dispatch('tree', 'selected', Assist.deepCopy(this.data));
+        if (this.data.selected) {
+          this.data.selected = false;
+        }
+        this.dispatch('tree', 'selected', this.data);
       },
       handleExpand: function handleExpand () {
         if (this.isFolder) {
@@ -919,12 +1000,10 @@ staticRenderFns: [],
       	var name = parent.$options.name;
         while(parent && name != componentName){
           parent = parent.$parent;
-
           if (parent) {
             name = parent.$options.name;
           }
         }
-
         if (parent) {
           parent.$emit.apply(parent, [eventName].concat([params]));
         }
@@ -933,7 +1012,7 @@ staticRenderFns: [],
   };
 
 var Tree = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_c('ul',_vm._l((_vm.data),function(item){return _c('tree-node',{key:item,attrs:{"data":item},on:{"on-selected":_vm.onSelected}})})),_vm._v(" "),(!_vm.data.length)?_c('div',[_vm._v("没有数据！")]):_vm._e()])},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_c('ul',_vm._l((_vm.cloneData),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})),_vm._v(" "),(!_vm.data.length)?_c('div',[_vm._v("没有数据！")]):_vm._e()])},
 staticRenderFns: [],
     name: 'tree',
     components: { treeNode: treeNode },
@@ -945,17 +1024,48 @@ staticRenderFns: [],
         }
       }
     },
-    methods: {
-      onSelected: function onSelected (data) {
-        this.$emit('on-select-change', data);
+    data: function data () {
+      return {
+        children: [],
+        cloneData: Assist.transformToTreeFormat(Assist.deepCopy(this.data))
+      }
+    },
+    watch: {
+      data: function data () {
+        this.cloneData = Assist.transformToTreeFormat(Assist.deepCopy(this.data));
       }
     },
     mounted: function mounted () {
       var this$1 = this;
 
       this.$on('selected', function (data) {
-        this$1.$emit('on-select-change', data);
+        if (this$1.children.length <= 0) {
+          this$1.findComponentsDownward(this$1, 'treeNode');
+        }
+
+        this$1.children.forEach(function (node) {
+          this$1.$set(node.data, 'selected', false);
+        });
+        this$1.$set(data, 'selected', true);
+        this$1.$emit('on-select-change', Assist.deepCopy(data));
       });
+    },
+    methods: {
+      findComponentsDownward: function findComponentsDownward (context, componentName) {
+        var this$1 = this;
+
+        var childrens = context.$children;
+        if (childrens.length) {
+          for (var i = 0, len = childrens.length; i < len; i++) {
+            var child = childrens[i];
+            var name = child.$options.name;
+            if (name === componentName) {
+              this$1.children.push(child);
+            }
+            this$1.findComponentsDownward(child, componentName);
+          }
+        }
+      }
     }
   };
 

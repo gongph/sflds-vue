@@ -4,12 +4,7 @@
 ## 示例代码
 
 ```html
-<sf-search 
-  more-text="高级搜索>>" 
-  href="/more" 
-  placeholder="请输入关键字..." 
-  @click="search">
-</sf-search>
+<sf-search placeholder="请输入关键字..." @click="search"></sf-search>
 ```
 
 ```js
@@ -35,6 +30,7 @@ new Vue({
 | 属性 | 类型 | 默认值 | 说明 |
 | :--- | :---: | :---: | :--- |
 | href | String | `#` | 点击 `高级查询` 时的跳转链接 |
+| show-more | Boolean | `false` | 是否显示高级查询 |
 | more-text | String | `高级查询>>` | 自定义 `高级查询` 链接文本 |
 | button-text | String | `-` | 自定义查询按钮文本 |
 | placeholder | String | `-` | 文本输入框中的提示文字 |

@@ -15,13 +15,13 @@
       <sf-header>
         <!-- 头部工具条 -->
         <sf-toolbar>
-          <sf-toolbar-item href="#" @click="backHome">返回首页</sf-toolbar-item>
+          <sf-toolbar-item href="/home" @click="backHome">返回首页</sf-toolbar-item>
           <sf-toolbar-item>加入收藏</sf-toolbar-item>
           <sf-toolbar-item>RSS订阅</sf-toolbar-item>
         </sf-toolbar>
         <!-- 导航条 -->
         <sf-navbar>
-          <sf-navbar-item href="zhcx">综合查询</sf-navbar-item>
+          <sf-navbar-item href="/zhcx/test/dd">综合查询</sf-navbar-item>
           <sf-navbar-item href="/fltxcx">法律体系查询</sf-navbar-item>
           <sf-navbar-item href="/home" active>最新法律资讯</sf-navbar-item>
         </sf-navbar>
@@ -45,7 +45,7 @@
         <!-- 左侧 -->
         <sf-aside align="left">
           <!-- 综合查询 -->
-          <sf-search more-text="高级搜索>>" href="/more" placeholder="请输入关键字..."></sf-search>
+          <sf-search placeholder="请输入关键字..."></sf-search>
           <!-- 快速链接 -->
           <sf-quick-link>
             <sf-link v-for="link of links" :key="link.id" :href="link.url">{{link.name}}</sf-link>
@@ -60,16 +60,17 @@
               <!-- 表格组件 -->
               <sf-table :columns="columns" 
                         :data="tableDatas" 
-                        :total="39" 
+                        :total="total" 
                         :current="currentPage" 
-                        :page-size="20" 
+                        :page-size="15" 
                         :show-page="true" 
                         @on-page-change="onPageChange">
                         </sf-table>
+              <sf-button tag="p" tag-class="btn_b" primary>更多>></sf-button>
             </sf-tab>
             <sf-tab id="t2" header="行政执法文书">
               <!-- 树形组件 -->
-              <sf-tree :data="treeData" @on-select-change="onSelectChange"></sf-tree>
+              <sf-tree :data="nodes" @on-select-change="onSelectChange"></sf-tree>
             </sf-tab>
             <sf-tab id="t3" header="司法判决书">3</sf-tab>
             <sf-tab id="t4" header="自律监管措施决定书">4</sf-tab>

@@ -4,7 +4,7 @@
 ## 示例代码
 
 ```html 
-<sf-tree :data="treeData" @on-select-change="onSelectChange"></sf-tree>
+<sf-tree :data="nodes" @on-select-change="onSelectChange"></sf-tree>
 ```
 
 
@@ -12,29 +12,13 @@
 new Vue({
   ...
   data: {
-    treeData: [{
-        title: '根节点-1',
-        expand: true,
-        children: [{
-          title: '子节点-1-1',
-          children: [{
-            title: '叶子节点'
-          }]
-        }]
-      }, {
-        title: '根节点-2',
-        children: [{
-          title: '子节点-2-1',
-          children: [{
-            title: '叶子节点'
-          }]
-        }]
-      }, {
-        title: '根节点-3',
-        children: [{
-          title: '叶子节点'
-        }]
-    }]
+    nodes: [
+      {id: 1, pId: 0, name: '根节点-1', expand: true},
+      {id: 11, pId: 1, name: '子节点-1-1'},
+      {id: 12, pId: 1, name: '子节点-1-2'},
+      {id: 111, pId: 11, name: '叶子节点-1-1-1'},
+      {id: 2, pId: 0, name: '根节点-2'}
+    ]
   },
   methods: {
     onSelectChange: function (data) {
@@ -62,9 +46,11 @@ new Vue({
 ...
 data: [
   {
-     title  : String, // 标题
+     id    : Number|String, 
+     pId   : Number|String,
+     name  : String,
      expand: Boolean, // 是否展开节点
-     children: Array  // 子节点
+     DIY   : Any      // 自定义属性
   }
 ]
 ...

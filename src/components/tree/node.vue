@@ -3,7 +3,7 @@
     <span class="sf-tree-arrow" @click="handleExpand" v-if="isFolder">
       <i class="glyphicon" :class="allowClasses"></i>
     </span>
-    <span class="sf-tree-title" v-html="data.title" @click="handleSelect"></span>
+    <span :class="titleClasses" v-html="data.name" @click="handleSelect" :title="data.name"></span>
     <ul v-show="open" v-if="isFolder">
       <tree-node 
         v-for="item in data.children" 
@@ -14,7 +14,6 @@
   </li>
 </template>
 <script>
-  import Assist from '../../utils/assist.js';
   export default {
     name: 'treeNode',
     props: {
@@ -36,11 +35,22 @@
       },
       allowClasses () {
         return 'glyphicon-chevron-' + (this.open ? 'down' : 'right');
+      },
+      titleClasses () {
+        return [
+          'sf-tree-title',
+          {
+            'sf-tree-title-selected': this.data.selected
+          }
+        ]
       }
     },
     methods: {
       handleSelect (e) {
-        this.dispatch('tree', 'selected', Assist.deepCopy(this.data));
+        if (this.data.selected) {
+          this.data.selected = false;
+        }
+        this.dispatch('tree', 'selected', this.data);
       },
       handleExpand () {
         if (this.isFolder) {
@@ -52,12 +62,10 @@
       	let name = parent.$options.name;
         while(parent && name != componentName){
           parent = parent.$parent;
-
           if (parent) {
             name = parent.$options.name;
           }
         }
-
         if (parent) {
           parent.$emit.apply(parent, [eventName].concat([params]));
         }

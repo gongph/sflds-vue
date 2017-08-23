@@ -17,10 +17,12 @@
         ' * <%= pkg.name %> <%= pkg.version %>',
         ' * <%= pkg.description %>',
         ' * ',
-        ' * Copyright <%= date.year %>, <%= pkg.author %>',
+        ' * Copyright <%= date.currentTime %>, <%= pkg.author %>',
         ' * ',
         ' */',
-        ' '].join('\n')
+        ' '].join('\n'),
+
+    currentTime = new Date().toLocaleDateString()+ " " + (new Date()).toLocaleTimeString();
 
     gulp.task('dist', function (cb) {
       rollup({
@@ -38,7 +40,7 @@
         pkg: pkg,
         date: (function(){
         	return {
-        	  year: new Date().getFullYear()
+        	  currentTime
         	}
         })()
       }))
@@ -52,7 +54,7 @@
               pkg: pkg,
               date: (function(){
               	return {
-              	  year: new Date().getFullYear()
+              	  currentTime
               	}
               })()
             }))

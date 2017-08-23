@@ -9,7 +9,7 @@
       active: Boolean,
       target: {
         type: String,
-        default: '_blank'
+        default: '_self'
       }
     },
     computed: {

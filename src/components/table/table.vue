@@ -3,7 +3,8 @@
   <template v-if="showPage">
     <Page :current="currentPage" 
           :pageSize="pageSize" 
-          :total="total"  
+          :total="total" 
+          :key="timestamp" 
           @on-change="onPageChange"></Page>
   </template>
   <table class="table table-hover table-striped table-condensed" :class="classes">
@@ -20,15 +21,18 @@
         <tr><td v-for="column in columns" 
               v-html="renderTd(row, column, index)" 
               :key="row" 
-              :class="column.classes"></td>
-        </tr>
+              :class="column.classes"></td></tr>
       </template>
+      <tr v-if="cloneData.length <= 0">
+        <td :colspan="columns.length" class="text-center font_red">没有符合条件的数据！</td>
+      </tr>
     </tbody>
   </table>
   <template v-if="showPage">
     <Page :current="currentPage" 
           :pageSize="pageSize" 
           :total="total" 
+          :key="timestamp" 
           @on-change="onPageChange"></Page>
   </template>
 </template>
@@ -72,13 +76,20 @@
       return {
       	currentPage: this.current,
         cloneColumns: Assist.deepCopy(this.columns),
-        cloneData: Assist.deepCopy(this.data)
+        cloneData: Assist.deepCopy(this.data),
+        timestamp: new Date().getTime() // 时间戳
       }
     },
     watch: {
+      // 监听当前页
+      current () {
+        this.currentPage = this.current;
+      },
+      // 监听服务端数据
       data () {
         this.cloneData = Assist.deepCopy(this.data);
       },
+      // 监听列
       columns () {
         this.cloneColumns = Assist.deepCopy(this.columns);
       }

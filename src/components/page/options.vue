@@ -1,7 +1,7 @@
 <template>
   <div class="jump" v-if="showJump">
     <span class="jump_text">
-      <button type="button" class="btn btn-primary btn-xs" @click="changePage">GO</button>
+      <button type="button" :disabled="total <= 0 ? true : false" class="btn btn-primary btn-xs" @click="changePage">GO</button>
     </span>
     <span class="jump_text">页</span>
     <span class="jump_text">

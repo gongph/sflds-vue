@@ -24,7 +24,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | :---: | :---: | :---: | :--- |
 | href | String | `#` | 指定跳转链接 |
-| target | String | `_blank` | 指定跳转方式，用法同 `<a>` |
+| target | String | `_self` | 指定跳转方式，用法同 `<a>` |
 | active | Boolean | `false` | 是否是激活状态 |
 
 以下是 `<sf-navbar-item>` 组件可用的事件：

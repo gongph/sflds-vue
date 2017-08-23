@@ -3,7 +3,7 @@
   export default {
     render: function (c) {
       var self = this;
-      return c('sf-link', {
+      return c('a', {
         class: {
           'active_nav': self.active ? true : false
         },

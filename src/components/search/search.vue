@@ -4,7 +4,7 @@
       <span><input type="text" :placeholder="placeholder"/></span>
       <span><input type="button" @click.stop="handleSearch" :value="buttonText"/></span>
     </div>
-    <div class="search_more">
+    <div class="search_more" v-if="showMore">
       <a :href="href">{{moreText}}</a>
     </div>
   </div>
@@ -27,6 +27,10 @@
       moreText: {
         type: String,
         default: '高级查询>>'
+      },
+      showMore: {
+        type: Boolean,
+        default:false
       }
     },
     methods: {
