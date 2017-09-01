@@ -2,7 +2,7 @@
  * sflds-vue 3.0.0
  * sflds project build with vue2.x
  * 
- * Copyright 2017-08-23 14:16:13, gongph <gongph@foxmail.com>
+ * Copyright 2017-09-01 15:11:56, gongph <gongph@foxmail.com>
  * 
  */
  (function (global, factory) {
@@ -25,13 +25,22 @@ var View = {
 var Header = {
     render: function (c) {
       var logoEl, self = this;
-      logoEl = c('sf-logo');
+      logoEl = c('sf-logo', {
+        props: {
+          websiteCn: self.websiteCn,
+          websiteEn: self.websiteEn
+        }
+      });
 
       return c('div', {
         class: {
           'page_header': true
         }
       }, [logoEl, self.$slots.default])
+    },
+    props: {
+      websiteCn: [String],
+      websiteEn: [String]
     }
   };
 
@@ -103,16 +112,10 @@ var QuickLink = {
   };
 
 var Logo = {
-  	data: function data () {
-  	  return {
-  	    sysCn: '法规数据库查询系统',
-  	    sysEn: 'Regulatory database query system'
-  	  }
-  	},
     render: function (c) {
       var syscnEl, sysenEl, self = this;
-      syscnEl = c('p', { class: { 'sys_cn': true } }, self.sysCn);
-      sysenEl = c('p', { class: { 'sys_en': true } }, self.sysEn);
+      syscnEl = c('p', { class: { 'sys_cn': true } }, self.websiteCn);
+      sysenEl = c('p', { class: { 'sys_en': true } }, self.websiteEn);
 
       var logoEl = c('div', {
         class: {
@@ -121,6 +124,16 @@ var Logo = {
       }, [syscnEl, sysenEl]);
 
       return logoEl;
+    },
+    props: {
+      websiteCn: {
+        type: String,
+        default: '证券期货法规数据库系统'
+      },
+      websiteEn: {
+        type: String,
+        default: 'Securities and futures law database'
+      }
     }
   };
 
@@ -836,12 +849,16 @@ var Assist = {
 };
 
 var Table = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showPage)?[_c('Page',{key:_vm.timestamp,attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e(),_vm._v(" "),_c('table',{staticClass:"table table-hover table-striped table-condensed",class:_vm.classes},[_c('colgroup',_vm._l((_vm.columns),function(column){return _c('col',{attrs:{"width":column.width}})})),_vm._v(" "),_c('thead',[_c('tr',_vm._l((_vm.columns),function(column){return _c('th',{class:column.classes,domProps:{"textContent":_vm._s(column.title)}})}))]),_vm._v(" "),_c('tbody',[_vm._l((_vm.cloneData),function(row,index){return [_c('tr',_vm._l((_vm.columns),function(column){return _c('td',{key:row,class:column.classes,domProps:{"innerHTML":_vm._s(_vm.renderTd(row, column, index))}})}))]}),_vm._v(" "),(_vm.cloneData.length <= 0)?_c('tr',[_c('td',{staticClass:"text-center font_red",attrs:{"colspan":_vm.columns.length}},[_vm._v("没有符合条件的数据！")])]):_vm._e()],2)]),_vm._v(" "),(_vm.showPage)?[_c('Page',{key:_vm.timestamp,attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e()],2)},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showPage)?[_c('Page',{key:_vm.timestamp,attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e(),_vm._v(" "),_c('table',{staticClass:"table table-hover table-striped table-condensed",class:_vm.classes},[_c('colgroup',_vm._l((_vm.columns),function(column){return _c('col',{attrs:{"width":column.width}})})),_vm._v(" "),_c('thead',[_c('tr',_vm._l((_vm.columns),function(column){return _c('th',{class:column.classes,domProps:{"textContent":_vm._s(column.title)}})}))]),_vm._v(" "),_c('tbody',[_vm._l((_vm.cloneData),function(row,index){return [_c('tr',_vm._l((_vm.columns),function(column){return _c('td',{key:row,class:column.classes,domProps:{"innerHTML":_vm._s(_vm.renderTd(row, column, index))}})}))]}),_vm._v(" "),(_vm.cloneData.length <= 0)?_c('tr',[_c('td',{staticClass:"text-center font_red",attrs:{"colspan":_vm.columns.length}},[_vm._v(_vm._s(_vm.loadingMsg))])]):_vm._e()],2)]),_vm._v(" "),(_vm.showPage)?[_c('Page',{key:_vm.timestamp,attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e()],2)},
 staticRenderFns: [],
     name: 'table',
     components: { Page: Page },
     mixins: [PageMixin],
     props: {
+      loadingMsg: {
+        type: String,
+        default: '正在加载中...'
+      },
       // 自定义样式
       classes: String,
       showIndex: {
@@ -1012,11 +1029,20 @@ staticRenderFns: [],
   };
 
 var Tree = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_c('ul',_vm._l((_vm.cloneData),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})),_vm._v(" "),(!_vm.data.length)?_c('div',[_vm._v("没有数据！")]):_vm._e()])},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_c('ul',_vm._l((_vm.cloneData),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})),_vm._v(" "),(_vm.loading)?_vm._t("tree-loading",[_c('div',{staticClass:"tree-loading"},[_vm._v(_vm._s(_vm.loadingMsg))])]):_vm._e(),_vm._v(" "),(!_vm.loading && !_vm.data.length)?_c('div',{staticClass:"tree-no-data-msg"},[_vm._v(_vm._s(_vm.noDataMsg))]):_vm._e()],2)},
 staticRenderFns: [],
     name: 'tree',
     components: { treeNode: treeNode },
     props: {
+      loading: Boolean,
+      loadingMsg: {
+        type: String,
+        default: '正在加载中...'
+      },
+      noDataMsg: {
+        type: String,
+        default: '没有数据！'
+      },
       data: {
         type: Array,
         default: function default$1 () {
@@ -1034,6 +1060,9 @@ staticRenderFns: [],
       data: function data () {
         this.cloneData = Assist.transformToTreeFormat(Assist.deepCopy(this.data));
       }
+    },
+    created: function created () {
+      console.log('loading', this.$slots.loading);
     },
     mounted: function mounted () {
       var this$1 = this;
