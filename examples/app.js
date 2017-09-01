@@ -33,19 +33,23 @@ new Vue({
     ],
     // 表格数据
     tableDatas: [
-      { name: '张三', age: 18, address: '北京市朝阳区'},
-      { name: '李四', age: 25, address: '北京市丰台区七里庄'},
-      { name: '王五', age: 30, address: '北京市海淀区二里庄'}
+      // { name: '张三', age: 18, address: '北京市朝阳区'},
+      // { name: '李四', age: 25, address: '北京市丰台区七里庄'},
+      // { name: '王五', age: 30, address: '北京市海淀区二里庄'}
     ],
     currentPage: 1, // 当前页
     total: 39, // 总条数
     nodes: [
-      {id: "1", pId: 0, name: '根节点-1', expand: true},
-      {id: 11, pId: "1", name: '子节点-1-1'},
-      {id: 12, pId: 1, name: '子节点-1-2'},
-      {id: 111, pId: 11, name: '叶子节点-1-1-1'},
-      {id: 2, pId: 0, name: '根节点-2'}
-    ]
+      // {id: "1", pId: 0, name: '根节点-1', expand: true},
+      // {id: 11, pId: "1", name: '子节点-1-1'},
+      // {id: 12, pId: 1, name: '子节点-1-2'},
+      // {id: 111, pId: 11, name: '叶子节点-1-1-1'},
+      // {id: 2, pId: 0, name: '根节点-2'}
+    ],
+    treeLoading: true
+  },
+  created () {
+    this.onloadTableData()
   },
   methods: {
     /**
@@ -71,10 +75,37 @@ new Vue({
      * 改变页码回调，返回当前页
      */
     onPageChange (pageInfo) {
-      console.log(pageInfo);
+      this.tableDatas = [];
+      this.onloadTableData();
+      console.log('onPageChange:', pageInfo);
     },
     onSelectChange (data) {
-      console.log(data);
+      console.log('onSelectChange:', data);
+    },
+    onloadTreeData () {
+      setTimeout(() => {
+        this.nodes = [
+          {id: "1", pId: 0, name: '根节点-1', expand: true},
+          {id: 11, pId: "1", name: '子节点-1-1'},
+          {id: 12, pId: 1, name: '子节点-1-2'},
+          {id: 111, pId: 11, name: '叶子节点-1-1-1'},
+          {id: 2, pId: 0, name: '根节点-2'}
+        ]
+        this.treeLoading = false;
+      }, 2000)
+    },
+    onloadTableData () {
+      setTimeout(() => {
+        this.tableDatas = [
+          { name: '张三', age: 18, address: '北京市朝阳区'},
+          { name: '李四', age: 25, address: '北京市丰台区七里庄'},
+          { name: '王五', age: 30, address: '北京市海淀区二里庄'}
+        ]
+      }, 2000)
+    },
+    onCleanTreeData () {
+      this.nodes = [];
+      //this.treeLoading = false;
     }
   }
 });
