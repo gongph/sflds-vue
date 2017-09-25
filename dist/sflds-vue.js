@@ -2,7 +2,7 @@
  * sflds-vue 3.0.0
  * sflds project build with vue2.x
  * 
- * Copyright 2017-09-01 15:11:56, gongph <gongph@foxmail.com>
+ * Copyright 2017-09-25 09:11:10, gongph <gongph@foxmail.com>
  * 
  */
  (function (global, factory) {
@@ -1060,9 +1060,6 @@ staticRenderFns: [],
       data: function data () {
         this.cloneData = Assist.transformToTreeFormat(Assist.deepCopy(this.data));
       }
-    },
-    created: function created () {
-      console.log('loading', this.$slots.loading);
     },
     mounted: function mounted () {
       var this$1 = this;

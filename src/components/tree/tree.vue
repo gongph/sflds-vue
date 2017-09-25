@@ -47,9 +47,6 @@
         this.cloneData = Assist.transformToTreeFormat(Assist.deepCopy(this.data));
       }
     },
-    created () {
-      console.log('loading', this.$slots.loading)
-    },
     mounted () {
       this.$on('selected', data => {
         if (this.children.length <= 0) {
