@@ -47,6 +47,53 @@ new Vue({
 });
 ```
 
+带 `loading` 动画的示例：
+
+```html
+<sf-table 
+  :columns="columns" 
+  :data="tableDatas" 
+  :total="200" 
+  :current="currentPage" 
+  :page-size="1" 
+  :show-page="true" 
+  @on-page-change="onPageChange" 
+  loading-msg="loadingMsg">
+</sf-table>
+```
+```js
+new Vue({
+  ...
+  data: {
+    // ... 省略无关代码
+    tableDatas: [],
+    loadingMsg: 'loading...'
+  },
+  methods: {
+    onAjaxRequestData () {
+      $.ajax({
+        ...
+        success: function (response) {
+          if (response.data) {
+            this.tableDatas = response.data;
+          } else {
+            this.loadingMsg = "no data！";
+          }
+        }
+      })
+    }
+    // 如果想实翻页加载动画
+    // 1. 首先把 `this.tableDatas` 清空
+    // 2. 然后再赋值，例如：
+    onPageChange: function (pageInfo) {
+      this.tableDatas = [];
+      this.onAjaxRequestData();
+    }
+  }
+});
+```
+
+
 ## 效果图
 
 ![preview](./media/table.png)
@@ -57,6 +104,7 @@ new Vue({
 
 | 属性 | 类型 | 默认值 | 说明 |
 | :--- | :---: | :---: | :--- |
+| loading-msg | String | `正在加载中...` | 加载提示 |
 | classes | String | `-` | 自定义 `class` 样式 |
 | columns | Array | `[]` | 自定义表格列 |
 | data | Array | `[]` | 服务端数据源 |

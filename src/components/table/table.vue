@@ -24,7 +24,7 @@
               :class="column.classes"></td></tr>
       </template>
       <tr v-if="cloneData.length <= 0">
-        <td :colspan="columns.length" class="text-center font_red">没有符合条件的数据！</td>
+        <td :colspan="columns.length" class="text-center font_red">{{loadingMsg}}</td>
       </tr>
     </tbody>
   </table>
@@ -46,6 +46,10 @@
     components: { Page },
     mixins: [PageMixin],
     props: {
+      loadingMsg: {
+        type: String,
+        default: '正在加载中...'
+      },
       // 自定义样式
       classes: String,
       showIndex: {
