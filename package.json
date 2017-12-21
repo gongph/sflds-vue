@@ -1,6 +1,6 @@
 {
   "name": "sflds-vue",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "sflds project build with vue2.x",
   "main": "./src/index.js",
   "scripts": {

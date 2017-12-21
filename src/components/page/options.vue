@@ -42,13 +42,15 @@
           if (val !== this.current) {
             const allPages = this.allPages;
             if (val >= allPages) {
-              page = allPages;
+              // page = allPages;
+              alert("请输入有效页码！");
             } else {
               page = val;
             }
           }
         } else {
-          page = 1;
+          // page = 1; 
+          alert("请输入有效页码！");
         }
 
         if (page) {

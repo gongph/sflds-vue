@@ -7,7 +7,10 @@
         :data="item">
       </tree-node>
     </ul>
-    <div v-if="!data.length">没有数据！</div>
+    <slot name="tree-loading" v-if="loading">
+      <div class="tree-loading">{{loadingMsg}}</div>
+    </slot>
+    <div class="tree-no-data-msg" v-if="!loading && !data.length">{{noDataMsg}}</div>
   </div>
 </template>
 <script>
@@ -17,6 +20,15 @@
     name: 'tree',
     components: { treeNode },
     props: {
+      loading: Boolean,
+      loadingMsg: {
+        type: String,
+        default: '正在加载中...'
+      },
+      noDataMsg: {
+        type: String,
+        default: '没有数据！'
+      },
       data: {
         type: Array,
         default () {

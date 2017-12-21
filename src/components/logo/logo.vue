@@ -1,15 +1,9 @@
 <script>
   export default {
-  	data () {
-  	  return {
-  	    sysCn: '法规数据库查询系统',
-  	    sysEn: 'Regulatory database query system'
-  	  }
-  	},
     render: function (c) {
       var syscnEl, sysenEl, self = this;
-      syscnEl = c('p', { class: { 'sys_cn': true } }, self.sysCn);
-      sysenEl = c('p', { class: { 'sys_en': true } }, self.sysEn);
+      syscnEl = c('p', { class: { 'sys_cn': true } }, self.websiteCn);
+      sysenEl = c('p', { class: { 'sys_en': true } }, self.websiteEn);
 
       var logoEl = c('div', {
         class: {
@@ -18,6 +12,16 @@
       }, [syscnEl, sysenEl]);
 
       return logoEl;
+    },
+    props: {
+      websiteCn: {
+        type: String,
+        default: '证券期货法规数据库系统'
+      },
+      websiteEn: {
+        type: String,
+        default: 'Securities and futures law database'
+      }
     }
   }
 </script>

@@ -1,8 +1,8 @@
 /**
- * sflds-vue 3.0.0
+ * sflds-vue 3.0.1
  * sflds project build with vue2.x
  * 
- * Copyright 2017-08-23 14:16:13, gongph <gongph@foxmail.com>
+ * Copyright 2017-12-21 16:04:16, gongph <gongph@foxmail.com>
  * 
  */
  (function (global, factory) {
@@ -25,13 +25,22 @@ var View = {
 var Header = {
     render: function (c) {
       var logoEl, self = this;
-      logoEl = c('sf-logo');
+      logoEl = c('sf-logo', {
+        props: {
+          websiteCn: self.websiteCn,
+          websiteEn: self.websiteEn
+        }
+      });
 
       return c('div', {
         class: {
           'page_header': true
         }
       }, [logoEl, self.$slots.default])
+    },
+    props: {
+      websiteCn: [String],
+      websiteEn: [String]
     }
   };
 
@@ -103,16 +112,10 @@ var QuickLink = {
   };
 
 var Logo = {
-  	data: function data () {
-  	  return {
-  	    sysCn: '法规数据库查询系统',
-  	    sysEn: 'Regulatory database query system'
-  	  }
-  	},
     render: function (c) {
       var syscnEl, sysenEl, self = this;
-      syscnEl = c('p', { class: { 'sys_cn': true } }, self.sysCn);
-      sysenEl = c('p', { class: { 'sys_en': true } }, self.sysEn);
+      syscnEl = c('p', { class: { 'sys_cn': true } }, self.websiteCn);
+      sysenEl = c('p', { class: { 'sys_en': true } }, self.websiteEn);
 
       var logoEl = c('div', {
         class: {
@@ -121,6 +124,16 @@ var Logo = {
       }, [syscnEl, sysenEl]);
 
       return logoEl;
+    },
+    props: {
+      websiteCn: {
+        type: String,
+        default: '证券期货法规数据库系统'
+      },
+      websiteEn: {
+        type: String,
+        default: 'Securities and futures law database'
+      }
     }
   };
 
@@ -622,13 +635,15 @@ staticRenderFns: [],
           if (val !== this.current) {
             var allPages = this.allPages;
             if (val >= allPages) {
-              page = allPages;
+              // page = allPages;
+              alert("请输入有效页码！");
             } else {
               page = val;
             }
           }
         } else {
-          page = 1;
+          // page = 1; 
+          alert("请输入有效页码！");
         }
 
         if (page) {
@@ -665,27 +680,27 @@ var PageMixin = {
   };
 
 var Page = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',[_c('ul',{staticClass:"pagination"},[_c('li',{class:_vm.prevClasses,on:{"click":_vm.prev}},[_c('a',[_vm._v("上一页")])]),_vm._v(" "),_c('li',{class:_vm.firstPageClasses,on:{"click":function($event){_vm.changePage(1);}}},[_c('a',[_vm._v("1")])]),_vm._v(" "),(_vm.currentPage-3 > 1)?_c('li',[_c('a',[_vm._v("...")])]):_vm._e(),_vm._v(" "),(_vm.currentPage - 2 > 1)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage - 2);}}},[_c('a',[_vm._v(_vm._s(_vm.currentPage - 2))])]):_vm._e(),_vm._v(" "),(_vm.currentPage - 1 > 1)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage - 1);}}},[_c('a',[_vm._v(_vm._s(_vm.currentPage - 1))])]):_vm._e(),_vm._v(" "),(_vm.currentPage != 1 && _vm.currentPage != _vm.allPages)?_c('li',{staticClass:"active"},[_c('a',[_vm._v(_vm._s(_vm.currentPage))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 1 < _vm.allPages)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage + 1);}}},[_c('a',[_vm._v(_vm._s(_vm.currentPage + 1))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 2 < _vm.allPages)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage + 2);}}},[_c('a',[_vm._v(_vm._s(_vm.currentPage + 2))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 3 < _vm.allPages)?_c('li',[_c('a',[_vm._v("...")])]):_vm._e(),_vm._v(" "),(_vm.allPages > 1)?_c('li',{class:_vm.lastPageClasses,on:{"click":function($event){_vm.changePage(_vm.allPages);}}},[_c('a',[_vm._v(_vm._s(_vm.allPages))])]):_vm._e(),_vm._v(" "),_c('li',{class:_vm.nextClasses,on:{"click":_vm.next}},[_c('a',[_vm._v("下一页")])])]),_vm._v(" "),_c('Options',{attrs:{"showJump":_vm.showJump,"total":_vm.total,"allPages":_vm.allPages,"current":_vm.currentPage,"_current":_vm.currentPage},on:{"on-page":_vm.onPage}})],1)},
-staticRenderFns: [],
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',[_c('ul',{staticClass:"pagination"},[_c('li',{class:_vm.prevClasses,on:{"click":_vm.prev}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v("上一页")])]),_vm._v(" "),_c('li',{class:_vm.firstPageClasses,on:{"click":function($event){_vm.changePage(1);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v("1")])]),_vm._v(" "),(_vm.allPages - 5 >= 2)?[(_vm.currentPage >= 1 && _vm.currentPage <= 4 )?[_vm._l((3),function(i){return [_c('li',{class:{active: (_vm.currentPage == (i + 1))},on:{"click":function($event){_vm.changePage(i + 1);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(i + 1))])])]}),_vm._v(" "),_c('li',{on:{"click":function($event){_vm.changePage(5);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v("5")])]),_vm._v(" "),_vm._m(0)]:_vm._e(),_vm._v(" "),(_vm.currentPage >= 5 && _vm.allPages - _vm.currentPage >= 4)?[_vm._m(1),_vm._v(" "),(_vm.currentPage - 1 > 1)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage - 1);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage - 1))])]):_vm._e(),_vm._v(" "),(_vm.currentPage != 1 && _vm.currentPage != _vm.allPages)?_c('li',{staticClass:"active"},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 1 < _vm.allPages)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage + 1);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage + 1))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 2 < _vm.allPages)?_c('li',[_c('a',[_vm._v("...")])]):_vm._e()]:_vm._e(),_vm._v(" "),((_vm.allPages - _vm.currentPage < 4) && _vm.currentPage >= 5)?[_vm._m(2),_vm._v(" "),_c('li',{class:{active: (_vm.currentPage === (_vm.allPages - 4))},on:{"click":function($event){_vm.changePage(_vm.allPages - 4);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.allPages - 4))])]),_vm._v(" "),(_vm.currentPage - 3 > 1)?_c('li',{class:{active: (_vm.currentPage === (_vm.allPages - 3))},on:{"click":function($event){_vm.changePage(_vm.allPages - 3);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.allPages - 3))])]):_vm._e(),_vm._v(" "),(_vm.currentPage - 2 > 1)?_c('li',{class:{active: (_vm.currentPage === (_vm.allPages - 2))},on:{"click":function($event){_vm.changePage(_vm.allPages - 2);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.allPages - 2))])]):_vm._e(),_vm._v(" "),(_vm.currentPage - 1 > 1)?_c('li',{class:{active: (_vm.currentPage === (_vm.allPages - 1))},on:{"click":function($event){_vm.changePage(_vm.allPages - 1);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.allPages - 1))])]):_vm._e()]:_vm._e()]:[(_vm.currentPage - 4 > 1)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage - 4);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage - 4))])]):_vm._e(),_vm._v(" "),(_vm.currentPage - 3 > 1)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage - 3);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage - 3))])]):_vm._e(),_vm._v(" "),(_vm.currentPage - 2 > 1)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage - 2);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage - 2))])]):_vm._e(),_vm._v(" "),(_vm.currentPage - 1 > 1)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage - 1);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage - 1))])]):_vm._e(),_vm._v(" "),(_vm.currentPage != 1 && _vm.currentPage != _vm.allPages)?_c('li',{staticClass:"active"},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 1 < _vm.allPages)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage + 1);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage + 1))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 2 < _vm.allPages)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage + 2);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage + 2))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 3 < _vm.allPages)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage + 3);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage + 3))])]):_vm._e(),_vm._v(" "),(_vm.currentPage + 4 < _vm.allPages)?_c('li',{on:{"click":function($event){_vm.changePage(_vm.currentPage + 4);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.currentPage + 4))])]):_vm._e()],_vm._v(" "),(_vm.allPages > 1)?_c('li',{class:_vm.lastPageClasses,on:{"click":function($event){_vm.changePage(_vm.allPages);}}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v(_vm._s(_vm.allPages))])]):_vm._e(),_vm._v(" "),_c('li',{class:_vm.nextClasses,on:{"click":_vm.next}},[_c('a',{attrs:{"href":"javascript:void(0);"}},[_vm._v("下一页")])])],2),_vm._v(" "),_c('Options',{attrs:{"showJump":_vm.showJump,"total":_vm.total,"allPages":_vm.allPages,"current":_vm.currentPage,"_current":_vm.currentPage},on:{"on-page":_vm.onPage}})],1)},
+staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[_c('a',[_vm._v("...")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[_c('a',[_vm._v("...")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[_c('a',[_vm._v("...")])])}],
     name: 'page',
-	components: { Options: Options },
-	mixins: [PageMixin],
-	data: function data () {
-	  return {
-	    currentPage: this.current,
-	    currentPageSize: this.pageSize
-	  }
-	},
-	computed: {
+    components: { Options: Options },
+    mixins: [PageMixin],
+    data: function data () {
+      return {
+        currentPage: this.current,
+        currentPageSize: this.pageSize
+      }
+    },
+    computed: {
       allPages: function allPages () {
         var allPage = Math.ceil(this.total / this.currentPageSize);
         return (allPage === 0) ? 1 : allPage;
-	  },
-	  prevClasses: function prevClasses () {
-	    return {
-	      'disabled': this.currentPage === 1
-	    }
-	  },
+      },
+      prevClasses: function prevClasses () {
+        return {
+          'disabled': this.currentPage === 1
+        }
+      },
       nextClasses: function nextClasses () {
         return {
           'disabled': this.currentPage === this.allPages
@@ -701,55 +716,55 @@ staticRenderFns: [],
           'active': this.currentPage === this.allPages
         }
       }
-	},
-	watch: {
-	  // 监听当前页的变化
+    },
+    watch: {
+      // 监听当前页的变化
       current: function current (val) {
         this.currentPage = val;
       }
-	},
-	created: function created () {
+    },
+    created: function created () {
       if (this.currentPage >= this.allPages) { this.currentPage = this.allPages; }
-	},
-	methods: {
-	  /**
-	   * 切换页码
-	   * @param  {Number} page 页码
-	   */
-	  changePage: function changePage (page) {
-	    if (this.currentPage !== page) {
-	      this.currentPage = page;
-	  	  var pageSize = this.currentPageSize;
-	  	  this.$emit('on-change', { page: page, pageSize: pageSize });
-	  	}
-	  },
-	  /**
-	   * 上一页
-	   */
-	  prev: function prev () {
-	    var current = this.currentPage;
-	      if (current <= 1) {
-	        return false;
-	      }
-	      this.changePage(current -1);
-	  },
-	  /**
-	   * 下一页
-	   */
-	  next: function next () {
-	    var current = this.currentPage;
-	      if (current >= this.allPages) {
-	        return false;
-	      }
-	      this.changePage(current + 1);
-	  },
-	  /**
-	   * 跳转页发生改变时回调
-	   */
-	  onPage: function onPage (page) {
+    },
+    methods: {
+  	  /**
+  	   * 切换页码
+  	   * @param  {Number} page 页码
+  	   */
+  	  changePage: function changePage (page) {
+  	    if (this.currentPage !== page) {
+  	      this.currentPage = page;
+  	  	  var pageSize = this.currentPageSize;
+  	  	  this.$emit('on-change', { page: page, pageSize: pageSize });
+  	  	}
+  	  },
+  	  /**
+  	   * 上一页
+  	   */
+  	  prev: function prev () {
+  	    var current = this.currentPage;
+  	      if (current <= 1) {
+  	        return false;
+  	      }
+  	      this.changePage(current -1);
+  	  },
+  	  /**
+  	   * 下一页
+  	   */
+  	  next: function next () {
+  	    var current = this.currentPage;
+  	      if (current >= this.allPages) {
+  	        return false;
+  	      }
+  	      this.changePage(current + 1);
+  	  },
+  	  /**
+  	   * 跳转页发生改变时回调
+  	   */
+  	  onPage: function onPage (page) {
         this.changePage(page);
-	  }
-	}
+  	  }
+    }
   };
 
 var Assist = {
@@ -836,12 +851,16 @@ var Assist = {
 };
 
 var Table = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showPage)?[_c('Page',{key:_vm.timestamp,attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e(),_vm._v(" "),_c('table',{staticClass:"table table-hover table-striped table-condensed",class:_vm.classes},[_c('colgroup',_vm._l((_vm.columns),function(column){return _c('col',{attrs:{"width":column.width}})})),_vm._v(" "),_c('thead',[_c('tr',_vm._l((_vm.columns),function(column){return _c('th',{class:column.classes,domProps:{"textContent":_vm._s(column.title)}})}))]),_vm._v(" "),_c('tbody',[_vm._l((_vm.cloneData),function(row,index){return [_c('tr',_vm._l((_vm.columns),function(column){return _c('td',{key:row,class:column.classes,domProps:{"innerHTML":_vm._s(_vm.renderTd(row, column, index))}})}))]}),_vm._v(" "),(_vm.cloneData.length <= 0)?_c('tr',[_c('td',{staticClass:"text-center font_red",attrs:{"colspan":_vm.columns.length}},[_vm._v("没有符合条件的数据！")])]):_vm._e()],2)]),_vm._v(" "),(_vm.showPage)?[_c('Page',{key:_vm.timestamp,attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e()],2)},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showPage)?[_c('Page',{key:_vm.timestamp,attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e(),_vm._v(" "),_c('table',{staticClass:"table table-hover table-striped table-condensed",class:_vm.classes},[_c('colgroup',_vm._l((_vm.columns),function(column){return _c('col',{attrs:{"width":column.width}})})),_vm._v(" "),_c('thead',[_c('tr',_vm._l((_vm.columns),function(column){return _c('th',{class:column.classes,domProps:{"textContent":_vm._s(column.title)}})}))]),_vm._v(" "),_c('tbody',[_vm._l((_vm.cloneData),function(row,index){return [_c('tr',_vm._l((_vm.columns),function(column){return _c('td',{key:row,class:column.classes,domProps:{"innerHTML":_vm._s(_vm.renderTd(row, column, index))}})}))]}),_vm._v(" "),(_vm.cloneData.length <= 0)?_c('tr',[_c('td',{staticClass:"text-center font_red",attrs:{"colspan":_vm.columns.length}},[_vm._v(_vm._s(_vm.loadingMsg))])]):_vm._e()],2)]),_vm._v(" "),(_vm.showPage)?[_c('Page',{key:_vm.timestamp,attrs:{"current":_vm.currentPage,"pageSize":_vm.pageSize,"total":_vm.total},on:{"on-change":_vm.onPageChange}})]:_vm._e()],2)},
 staticRenderFns: [],
     name: 'table',
     components: { Page: Page },
     mixins: [PageMixin],
     props: {
+      loadingMsg: {
+        type: String,
+        default: '正在加载中...'
+      },
       // 自定义样式
       classes: String,
       showIndex: {
@@ -1012,11 +1031,20 @@ staticRenderFns: [],
   };
 
 var Tree = {
-render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_c('ul',_vm._l((_vm.cloneData),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})),_vm._v(" "),(!_vm.data.length)?_c('div',[_vm._v("没有数据！")]):_vm._e()])},
+render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"sf-tree"},[_c('ul',_vm._l((_vm.cloneData),function(item){return _c('tree-node',{key:item,attrs:{"data":item}})})),_vm._v(" "),(_vm.loading)?_vm._t("tree-loading",[_c('div',{staticClass:"tree-loading"},[_vm._v(_vm._s(_vm.loadingMsg))])]):_vm._e(),_vm._v(" "),(!_vm.loading && !_vm.data.length)?_c('div',{staticClass:"tree-no-data-msg"},[_vm._v(_vm._s(_vm.noDataMsg))]):_vm._e()],2)},
 staticRenderFns: [],
     name: 'tree',
     components: { treeNode: treeNode },
     props: {
+      loading: Boolean,
+      loadingMsg: {
+        type: String,
+        default: '正在加载中...'
+      },
+      noDataMsg: {
+        type: String,
+        default: '没有数据！'
+      },
       data: {
         type: Array,
         default: function default$1 () {

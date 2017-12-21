@@ -16,5 +16,5 @@ Logo 组件是 [sf-header](./header.html) 组件的子组件，如果不手动�
 
 | 属性 | 类型 | 默认值 | 说明 |
 | :---: | :---: | :---: | :--- |
-| sysCn | String | `法规数据库查询系统` | 系统中文名 |
-| sysEn | String | `Regulatory database query system` | 系统英文名 |
+| website-cn | String | `证券期货法规数据库系统` | 站点中文名 |
+| website-en | String | `Securities and futures law database` | 站点英文名 |
