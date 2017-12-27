@@ -18,12 +18,12 @@
             </li>
           </template>
           <li @click="changePage(5)"><a href="javascript:void(0);">5</a></li>
-          <li><a>...</a></li>
+          <li class="disabled"><a>...</a></li>
         </template>
 
         <!-- 第五页过后显示格式：上一页 1 ... 4 5 6 ... 10 下一页 -->
         <template v-if="currentPage >= 5 && allPages - currentPage >= 4">
-          <li><a>...</a></li>
+          <li class="disabled"><a>...</a></li>
           <li v-if="currentPage - 1 > 1" @click="changePage(currentPage - 1)">
             <a href="javascript:void(0);">{{currentPage - 1}}</a>
           </li>
@@ -33,12 +33,12 @@
           <li v-if="currentPage + 1 < allPages" @click="changePage(currentPage + 1)">
             <a href="javascript:void(0);">{{currentPage + 1}}</a>
           </li>
-          <li v-if="currentPage + 2 < allPages"><a>...</a></li>
+          <li v-if="currentPage + 2 < allPages" class="disabled"><a>...</a></li>
         </template>
 
         <!-- 如果是最后一页，格式：上一页 1 ... 6 7 8 9 10 下一页 -->
         <template v-if="(allPages - currentPage < 4) && currentPage >= 5">
-          <li><a>...</a></li>
+          <li class="disabled"><a>...</a></li>
           <li @click="changePage(allPages - 4)" 
               :class="{active: (currentPage === (allPages - 4))}">
             <a href="javascript:void(0);">{{allPages - 4}}</a>
