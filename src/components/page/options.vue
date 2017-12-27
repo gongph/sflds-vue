@@ -41,7 +41,8 @@
           val = Number(val);
           if (val !== this.current) {
             const allPages = this.allPages;
-            if (val >= allPages) {
+            // if (val >= allPages)
+            if (val > allPages) {
               // page = allPages;
               alert("请输入有效页码！");
             } else {
