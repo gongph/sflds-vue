@@ -1,8 +1,8 @@
 /**
- * sflds-vue 3.0.1
+ * sflds-vue 3.0.2
  * sflds project build with vue2.x
  * 
- * Copyright 2017-12-21 16:04:16, gongph <gongph@foxmail.com>
+ * Copyright 2017-12-27 09:49:34, gongph <gongph@foxmail.com>
  * 
  */
  (function (global, factory) {
@@ -634,7 +634,8 @@ staticRenderFns: [],
           val = Number(val);
           if (val !== this.current) {
             var allPages = this.allPages;
-            if (val >= allPages) {
+            // if (val >= allPages)
+            if (val > allPages) {
               // page = allPages;
               alert("请输入有效页码！");
             } else {
